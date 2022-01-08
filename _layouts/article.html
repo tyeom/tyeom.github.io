@@ -13,7 +13,7 @@ type: article
 
   {%- if site.disqus.shortname -%}
     <div class="article__content" itemprop="articleBody">{{ content }}</div>
-    {%- include html파일이름 -%}
+    {%- include disqus.html -%}
   {%- else -%}
     <div class="article__content" itemprop="articleBody">{{ content }}</div>
   {%- endif -%}
