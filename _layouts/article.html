@@ -11,7 +11,13 @@ type: article
 <div class="layout--article">
   {%- include article/top/custom.html -%}
 
-  <div class="article__content" itemprop="articleBody">{{ content }}</div>
+  {% if site.disqus.shortname %}
+    {% include disqus.html %}
+  {% endif %}
+  {% else %}
+    <div class="article__content" itemprop="articleBody">{{ content }}</div>
+    {% include disqus.html %}
+  {% endif %}
 
   {%- if _sharing -%}
     <section class="article__sharing d-print-none">{%- include sharing.html -%}</section>
