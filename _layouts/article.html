@@ -11,7 +11,12 @@ type: article
 <div class="layout--article">
   {%- include article/top/custom.html -%}
 
-<div class="article__content" itemprop="articleBody">{{ content }}</div>
+  {%- if site.disqus.shortname -%}
+    <div class="article__content" itemprop="articleBody">{{ content }}</div>
+    {%- include html파일이름 -%}
+  {%- else -%}
+    <div class="article__content" itemprop="articleBody">{{ content }}</div>
+  {%- endif -%}
 
   {%- if _sharing -%}
     <section class="article__sharing d-print-none">{%- include sharing.html -%}</section>
