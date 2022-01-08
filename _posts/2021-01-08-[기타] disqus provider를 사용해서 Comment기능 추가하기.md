@@ -50,16 +50,12 @@ _layout폴더내에 post.html 또는 article.html 파일에서<br/>
 _includes폴더에 생성 했던 disqus.html 내용을 include 해주어야 합니다.
 html내에서 include하는 방법은
 
-{% include html파일이름 %}
+111111
 
 형식으로 추가 할 수 있으며, if표현식으로 다음과 같이 처리 할 수 있습니다.<br/>
 shortname이 지정되어 있는 경우 특정 html include처리
 
-{% if site.disqus.shortname %}
-
-&nbsp;&nbsp;{% include html파일이름 %}
-  
-{% endif %}
+22222
 
 그리고 포스트 작성시 comments: true 옵션을 추가해야 표시 될 수 있으니 이 부분도 체크해봐야 합니다.<br/>
 TeXt Theme에서는 _config.yml 설정 옵션에 따라 기본적으로 포스트 작성시 Comment provider가 사용 되도록 설정 되어 있습니다.
