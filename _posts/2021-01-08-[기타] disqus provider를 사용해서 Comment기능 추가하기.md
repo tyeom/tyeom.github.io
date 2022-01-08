@@ -1,5 +1,6 @@
 ---
 title: (기타) disqus provider를 사용해서 Comment기능 추가하기
+categories: Etc
 tags: github_블로그 Comment disqus
 ---
 
