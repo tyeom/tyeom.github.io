@@ -23,7 +23,7 @@ Jekyll테마를 사용해서 github 블로그 만들때 Comment기능을 추가 
 3. 사이트 정보를 입력합니다.<br/>
 - Website Name은 github Jekyll테마에서 수정할때 사용되므로 기억해 둡니다.<br/>
 - Plan은 무료 버전인 Basic으로 선택해도 됩니다.
-- Platform은 Jekyll로 선택 합니다. (꼭 Jekyll선택이 아닌 다른걸로 해도 되는 것 같지만 확인은 해보지 않았습니다.)
+- Platform은 Jekyll로 선택 합니다.
 
 github Jekyll테마에 적용
 -
@@ -45,8 +45,7 @@ Comment삽입관련 HTML태그 가이드를 볼 수 있습니다.
 ![image](https://user-images.githubusercontent.com/13028129/148647444-691063dd-76ee-45e2-ad79-e3f0f3c0aa49.png)
 
 
-TeXt Theme가 아닌 다른 테마인 경우 위 작업에서 추가로 해주어야 할 것이 있을 수 있습니다.
-
+3. _layout폴더내에 article.html 수정<br/>
 _layout폴더내에 post.html 또는 article.html 파일에서<br/>
 _includes폴더에 생성 했던 disqus.html 내용을 include 해주어야 합니다.
 html내에서 include하는 방법은
