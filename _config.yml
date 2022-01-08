@@ -214,6 +214,7 @@ defaults:
       show_edit_on_github: true
       show_subscribe: true
       pageview: true
+      key: anything # 댓글 공급자를 disqus로 설정할 경우 반드시 이 구문을 넣어야 disqus 댓글이 각 post 마다 실행됨
 
 
 ## => Plugins
