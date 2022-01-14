@@ -150,17 +150,16 @@ private static async Task WorkAsync(int i)
 
 결과는 위와 같이 await이후 다른 스레드가 사용 되어도 이전 스레드에서 사용 되었던 값이 그대로 복사되어 동일하게 표시 되고 있습니다.
 
-이런 동작은 **<span style="color: rgb(107, 173, 222);">System.Runtime.Remoting.Messaging.CallContext</span>** 의 LogicalData와 같습니다.
-
 
 의도치 않은 데이터 복사 방지
 -
 
+이런 동작은 **<span style="color: rgb(107, 173, 222);">System.Runtime.Remoting.Messaging.CallContext</span>** 의 LogicalData와 같습니다.<br/>
 스레드간 데이터 복사는 의도치 않은 오버헤드를 일으킬 수 있습니다. 만약 **<span style="color: rgb(107, 173, 222);">AsyncLocal&lt;T&gt;</span>** 사용에서 스레드풀에서 새로 사용 되는 스레드간 데이터 복사를 막아야 하는 경우라면 <br/>
 
 **<span style="color: rgb(107, 173, 222);">System.Runtime.Remoting.Messaging.CallContext</span>** 스레드간 데이터 이관 처리를 막는 것 처럼<br/>
 
-**<span style="color: rgb(107, 173, 222);">System.Threading.ExecutionContext 클래스의</span>** SuppressFlow()와 RestoreFlow()의 정적 메서드를 사용하면 됩니다.
+**<span style="color: rgb(107, 173, 222);">System.Threading.ExecutionContext</span>** 클래스의 SuppressFlow()와 RestoreFlow()의 정적 메서드를 사용하면 됩니다.
 
 ```cs
 ExecutionContext.SuppressFlow();
