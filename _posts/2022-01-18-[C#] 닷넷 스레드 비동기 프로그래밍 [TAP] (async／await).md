@@ -11,7 +11,7 @@ tags: C# 스레드 TAP thread 비동기 비동기프로그래밍 async await
 
 - IAsyncResult 형태의 콜백을 사용하는 **APM 패턴**(IAsyncResult 패턴) [링크](https://tyeom.github.io/c%23/2022/01/17/C-%EB%8B%B7%EB%84%B7-%EC%8A%A4%EB%A0%88%EB%93%9C-%EB%B9%84%EB%8F%99%EA%B8%B0-%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%B0%8D-APM.html)
 - 이벤트 기반의 **EAP 패턴** [링크](https://tyeom.github.io/c%23/2022/01/17/C-%EB%8B%B7%EB%84%B7-%EC%8A%A4%EB%A0%88%EB%93%9C-%EB%B9%84%EB%8F%99%EA%B8%B0-%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%B0%8D-EAP.html)
-- 작업 기반의 **TAP 패턴** 이 방식은 .NET Framework 4에서 도입되었으며, 비동기 프로그래밍에 권장되는 방식 입니다.
+- 작업 기반의 **TAP 패턴** 이 방식은 .NET Framework 4에서 도입되었으며, 비동기 프로그래밍에 권장되는 방식 입니다. [링크](https://tyeom.github.io/c%23/2022/01/18/C-%EB%8B%B7%EB%84%B7-%EC%8A%A4%EB%A0%88%EB%93%9C-%EB%B9%84%EB%8F%99%EA%B8%B0-%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%B0%8D-TAP-(async-await).html)
 
 <!--more-->
 
