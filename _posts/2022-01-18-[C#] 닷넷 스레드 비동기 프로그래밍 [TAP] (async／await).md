@@ -157,6 +157,50 @@ async／await 사용의 대기 처리
 만약 ContinueWith() 메서드안에서 또 다른 Task가 시작되고 그에 따른 또 콜백을 받아 처리 해야 하는 경우라면 그것은 콜백지옥이 될 것 입니다.<br/>
 그리고 ContinueWith() 로 인한 콜백 메서드 영역은 UI스레드가 아니므로 해당 구문에서 UI에 접근시 크로스스레드에 대한 처리가 별도 필요 합니다.
 
-이런 상황에서 async／await 예약어 사용으로 훨신 간결한 코드를 만들 수 있습니다.
+이런 상황에서 async／await 예약어 사용으로 훨신 간결한 코드를 만들 수 있습니다. 위에서 예를 들었던 코드를 async await 으로 바꾸면 다음과 같이 변경 할 수 있습니다.<br/>
+```cs
+Task.Run<bool>(() =>
+{
+  for (int i = 0; i < 10; i++)
+  {
+    System.Threading.Thread.Sleep(1000);
+    Console.WriteLine(i);
+  }
+  
+  return true;
+}).ContinueWith(t =>
+{
+  Console.WriteLine($"비동기 작업 결과 : {t.Result}");
+});
+Console.WriteLine("Task 비동기 시작!");
+```
 
+위 코드를 async await 예약어를 사용해서 처리 한다면<br/>
+```cs
+private Task<bool> WorkAsync()
+{
+  return Task.Run<bool>(() =>
+  {
+    for (int i = 0; i < 10; i++)
+      {
+        System.Threading.Thread.Sleep(1000);
+        Console.WriteLine(i);
+      }
+                           
+    return true;
+  });
+}
+
+private async GetWorkResult() {
+  bool result = await this.WorkAsync();  // UI 블로킹 없이 10초 후 true반환
+}
+```
+
+이 처럼 await 예약어를 통해 비동기 작업에 대한 결과를 처리 할 수 있습니다.
+
+async 예약어를 사용하려면 반환 타입이 **<span style="color: rgb(107, 173, 222);">System.Threading.Tasks.Task&lt;TResult&gt;</span>** 이거나<br/>
+결과가 없는 비동기 작업이라면 **<span style="color: rgb(107, 173, 222);">System.Threading.Tasks.Task</span>** 타입이거나<br/>
+void 반환 메서드에서 사용할 수 있습니다.<br/>
+사실 위 3가지 반환 메서드 외 '일반화된 비동기 반환 형식'의 **<span style="color: rgb(107, 173, 222);">System.Threading.Tasks.ValueTask<T><span>** 타입도 사용이 가능합니다.<br/>
+이 부분은 다음 포스트를 참조하면 됩니다. [링크](https://tyeom.github.io/c%23/2022/01/13/C-%EC%BB%A4%EC%8A%A4%ED%85%80-%EB%B9%84%EB%8F%99%EA%B8%B0-Task.html)
 
