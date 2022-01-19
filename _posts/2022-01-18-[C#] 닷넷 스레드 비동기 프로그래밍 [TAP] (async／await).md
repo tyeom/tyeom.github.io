@@ -264,9 +264,9 @@ True
 1. 메인 UI스레드에서 'Logic1', 'Logic2' 출력
 2. GetWorkResult() 메서드 진입   [메인 스레드에서 처리]
   2-1. bool result = await this.WorkAsync(); 구문 수행    [메인 스레드에서 처리]
-  2-2. WorkAsync() 메서드가 작업이 끝나지 않은 **<span style="color: rgb(107, 173, 222);">System.Threading.Tasks.Task&lt;TResult&gt;</span>** 를 반환하면 메인 스레드는 바로 리턴    [메인 스레드에서 처리]
+  2-2. WorkAsync() 메서드가 작업이 끝나지 않은 System.Threading.Tasks.Task&lt;TResult&gt; 를 반환하면 메인 스레드는 바로 리턴    [메인 스레드에서 처리]
 3. 메인 스레드는 계속해서 'Logic3' 출력
-4. 3번 작업과 동시에 WorkAsync() 메서드내의 **<span style="color: rgb(107, 173, 222);">System.Threading.Tasks.Task</span>** 로 처리 되는 비동기 작업을 스레드 풀에서 새로운 스레드를 가져와 별도의 스레드로 처리 합니다.    [작업 스레드에서 처리]
+4. 3번 작업과 동시에 WorkAsync() 메서드내의 System.Threading.Tasks.Task 로 처리 되는 비동기 작업을 스레드 풀에서 새로운 스레드를 가져와 별도의 스레드로 처리 합니다.    [작업 스레드에서 처리]
 5. 4번 비동기 작업이 완료 되면 await이후 구문 처리   [메인 스레드에서 처리 (＊ConfigureAwait() 메서드 호출에 따라 항상 그렇진 않습니다.)]
 ```
 
@@ -289,7 +289,7 @@ private Task GetWorkResult()
 }
 ```
 
-살펴보면 StateMachine 로직이 생성된 **<span style="color: rgb(107, 173, 222);">System.Runtime.CompilerServices.IAsyncStateMachine</span> 인터페이스가 상속된 GetWorkResult 클래스 생성하고 상태정보를 -1로 초기화 하고 **<span style="color: rgb(107, 173, 222);">System.Runtime.CompilerServices.AsyncTaskMethodBuilder</span>** 구조체를 생성해서 실행 합니다.
+살펴보면 StateMachine 로직이 생성된 **<span style="color: rgb(107, 173, 222);">System.Runtime.CompilerServices.IAsyncStateMachine</span>** 인터페이스가 상속된 GetWorkResult 클래스 생성하고 상태정보를 -1로 초기화 하고 **<span style="color: rgb(107, 173, 222);">System.Runtime.CompilerServices.AsyncTaskMethodBuilder</span>** 구조체를 생성해서 실행 합니다.
 
 그리고 Create() 메서드 호출로 **<span style="color: rgb(107, 173, 222);">System.Runtime.CompilerServices.AsyncTaskMethodBuilder</span>** 구조체가 생성되고 그 안에 정의 되어 있는<br/>
 **<span style="color: rgb(107, 173, 222);">System.Runtime.CompilerServices.AsyncTaskMethodBuilder&lt;TResult&gt;</span>** 구조체도 같이 초기화 시켜 줍니다. 그리고는 비동기 작업 Task를 바로 반환 합니다.
