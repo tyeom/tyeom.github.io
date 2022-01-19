@@ -136,12 +136,12 @@ System.Threading.Tasks.TaskFactory
 하지만 상황에 따라 스레드 풀을 사용하지 않거나 Task의 스케줄 옵션을 처리해야 하는 경우 비동기 작업 처리의 상세한 옵션이 제공되는 **<span style="color: rgb(107, 173, 222);">System.Threading.Tasks.TaskFactory</span>** 를 사용할 수 있습니다.<br/>
 **<span style="color: rgb(107, 173, 222);">System.Threading.Tasks.Task</span>** 에 Factory 정적 속성으로 싱글턴 형식으로 바로 사용할 수 있습니다.<br/>
 하지만 특별한 상황이 아닌 경우 스레드 풀을 사용하는 것이 성능에도 더 도움이 되고 짧은 코드로 간편하게 사용할 수 있는 **<span style="color: rgb(107, 173, 222);">System.Threading.Tasks.Task</span>** 를 사용하는 것이 가독성 측면에서 더 좋습니다.<br/>
-**[**<span style="color: rgb(107, 173, 222);">System.Threading.Tasks.Task</span>** 사용]**
+**[<span style="color: rgb(107, 173, 222);">System.Threading.Tasks.Task</span> 사용]**
 ```cs
 Task.Run(this.Work);
 ```
 
-**[**<span style="color: rgb(107, 173, 222);">System.Threading.Tasks.TaskFactory</span>** 사용]**
+**[<span style="color: rgb(107, 173, 222);">System.Threading.Tasks.TaskFactory</span> 사용]**
 ```cs
 Task.Factory.StartNew(this.Work,
     TaskCreationOptions.DenyChildAttach,
