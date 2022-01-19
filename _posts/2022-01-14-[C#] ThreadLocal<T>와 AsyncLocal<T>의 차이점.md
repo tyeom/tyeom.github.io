@@ -90,6 +90,9 @@ tls값이 처음 설정 된 값으로 유지 되고 있는 걸 확인 할 수 �
 이 뜻은 **<span style="color: rgb(107, 173, 222);">ThreadLocal&lt;T&gt;</span>** 에 값이 설정된 스레드 내에서 await으로 어떤 동기 작업을 대기시킨 이후 이어서 작업을 할때<br/>
 새로운 스레드로 처리가 된다면 **<span style="color: rgb(107, 173, 222);">ThreadLocal&lt;T&gt;</span>** 값은 엉뚱한 값으로 처리될 문제가 있습니다.
 
+> 이 상황은 Task 스레드 안에서 await 대기 사용시 또는 SynchronizationContext가 없는 콘솔 환경 같은 곳에서 해당 됩니다.<br/>
+> SynchronizationContext가 있는 UI 환경 (Winform, WPF 등에서 메인 스레드(UI 스레드) 에서 호출된 비동기 메서드 await 이후 구문은 메인 스레드로 처리 됩니다.)
+
 ```cs
 private static async Task WorkAsync(int i)
 {
