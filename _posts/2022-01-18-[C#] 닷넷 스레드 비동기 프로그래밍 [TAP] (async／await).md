@@ -93,7 +93,7 @@ foreach (var task in tasks)
 
 비동기 작업이 모두 끝날때 까지 스레드를 블로킹 하지 않고 콜백을 사용하여 결과를 받아 처리 할 수 있습니다. <br/>
 이때 사용할 수 있는 메서드가 ContinueWith() 입니다.<br/>
-메서드의 시그니처를 보면 Action<Task<TResult>>의 델리게이트를 파라메터로 받고 있습니다. 바로 이 부분이 비동기 작업이 완료된 이후 콜백으로 호출되는 부분입니다.<br/>
+메서드의 시그니처를 보면 Action<Task&lt;TResult&gt;>의 델리게이트를 파라메터로 받고 있습니다. 바로 이 부분이 비동기 작업이 완료된 이후 콜백으로 호출되는 부분입니다.<br/>
 ```cs
 Task.Run<bool>(() =>
 {
@@ -202,7 +202,7 @@ private async Task<bool> GetWorkResult()
 그리고 async 예약어를 사용하려면 반환 타입이 **<span style="color: rgb(107, 173, 222);">System.Threading.Tasks.Task&lt;TResult&gt;</span>** 이거나<br/>
 결과가 없는 비동기 작업이라면 **<span style="color: rgb(107, 173, 222);">System.Threading.Tasks.Task</span>** 타입이거나<br/>
 void 반환 메서드에서 사용할 수 있습니다.<br/>
-사실 위 3가지 반환 메서드 외 '일반화된 비동기 반환 형식'의 **<span style="color: rgb(107, 173, 222);">System.Threading.Tasks.ValueTask<T><span>** 타입도 사용이 가능합니다.<br/>
+사실 위 3가지 반환 메서드 외 '일반화된 비동기 반환 형식'의 **<span style="color: rgb(107, 173, 222);">System.Threading.Tasks.ValueTask&lt;T&gt;<span>** 타입도 사용이 가능합니다.<br/>
 이 부분은 다음 포스트를 참조하면 됩니다. [링크](https://tyeom.github.io/c%23/2022/01/13/C-%EC%BB%A4%EC%8A%A4%ED%85%80-%EB%B9%84%EB%8F%99%EA%B8%B0-Task.html)
 
 await 예약어에 대해 계속해서 설명을 하면 메서드 내에서 동기로 코드를 수행하다가 await 구문을 만나면 해당 메서드에서 내에서 비동기 수행 스레드는 현재 스레드의 컨텍스트를 캡쳐하고 아직 작업이 완료 되지 않은 **<span style="color: rgb(107, 173, 222);">System.Threading.Tasks.Task</span>** 타입 또는 **<span style="color: rgb(107, 173, 222);">System.Threading.Tasks.Task&lt;TResult&gt;</span>** 를 즉시 반환 합니다. (위 예제에서는 WorkAsync() 메서드가 됩니다.)<br/>
@@ -292,7 +292,7 @@ private Task GetWorkResult()
 살펴보면 StateMachine 로직이 생성된 **<span style="color: rgb(107, 173, 222);">System.Runtime.CompilerServices.IAsyncStateMachine</span> 인터페이스가 상속된 GetWorkResult 클래스 생성하고 상태정보를 -1로 초기화 하고 **<span style="color: rgb(107, 173, 222);">System.Runtime.CompilerServices.AsyncTaskMethodBuilder</span>** 구조체를 생성해서 실행 합니다.
 
 그리고 Create() 메서드 호출로 **<span style="color: rgb(107, 173, 222);">System.Runtime.CompilerServices.AsyncTaskMethodBuilder</span>** 구조체가 생성되고 그 안에 정의 되어 있는<br/>
-**<span style="color: rgb(107, 173, 222);">System.Runtime.CompilerServices.AsyncTaskMethodBuilder<TResult></span>** 구조체도 같이 초기화 시켜 줍니다. 그리고는 비동기 작업 Task를 바로 반환 합니다.
+**<span style="color: rgb(107, 173, 222);">System.Runtime.CompilerServices.AsyncTaskMethodBuilder&lt;TResult&gt;</span>** 구조체도 같이 초기화 시켜 줍니다. 그리고는 비동기 작업 Task를 바로 반환 합니다.
 
 그럼 자동 생성된 StateMachine이 포함되어 있는 클래스는 어떻게 되어 있는지 보겠습니다. 위에서 실행하고 있는 자동 생성된 GetWorkResult 클래스 입니다.<br/>
 ```cs
@@ -322,7 +322,7 @@ private sealed class <GetWorkResult>d__13 : IAsyncStateMachine
       {
         /////////// await 이전 구문 [메인 스레드에서 처리] ///////////
   
-        awaiter = this.<>4__this.WorkAsync().GetAwaiter();  // 비동기 작업의 System.Runtime.CompilerServices.TaskAwaiter<TResult> 구조체를 가져 옵니다.
+        awaiter = this.<>4__this.WorkAsync().GetAwaiter();  // 비동기 작업의 System.Runtime.CompilerServices.TaskAwaiter&lt;TResult&gt; 구조체를 가져 옵니다.
         if (!awaiter.IsCompleted)
         {
           this.<>1__state = num2 = 0;
@@ -364,7 +364,7 @@ private sealed class <GetWorkResult>d__13 : IAsyncStateMachine
 ```
 
 코드를 보면 알 수 있듯이 await 예약어 기준으로 이전 로직과 이후 로직을 분리하고 작업 전, 완료의 상태를 구분하고 있습니다.<br/>
-비동기 작업의 **<span style="color: rgb(107, 173, 222);">System.Runtime.CompilerServices.TaskAwaiter<TResult></span>** 구조체를 가져와서 Task가 끝났는지 체크를 합니다.<br/>
+비동기 작업의 **<span style="color: rgb(107, 173, 222);">System.Runtime.CompilerServices.TaskAwaiter&lt;TResult&gt;</span>** 구조체를 가져와서 Task가 끝났는지 체크를 합니다.<br/>
 아직 완료 되지 않았다면 **<span style="color: rgb(107, 173, 222);">System.Runtime.CompilerServices.AsyncTaskMethodBuilder</span>** 의 AwaitUnsafeOnCompleted<TAwaiter, TStateMachine>() 메서드를 통해 작업 완료 이후 콜백 처리 델리게이트를 등록합니다. 이 처리는 해당 Task완료 후 .ContinueWith(t => { MoveNext() }); 로 하는 것과 동일합니다.
 
 결국 비동기 작업이 완료 되면 MoveNext()메서드가 호출되고 this.<>1__state 값이 -1로 바뀌고 나서 await 이후 구문이 수행 됩니다.<br/>
