@@ -191,16 +191,226 @@ private Task<bool> WorkAsync()
   });
 }
 
-private async GetWorkResult() {
+private async Task<bool> GetWorkResult()
+{
   bool result = await this.WorkAsync();  // UI 블로킹 없이 10초 후 true반환
 }
 ```
 
 이 처럼 await 예약어를 통해 비동기 작업에 대한 결과를 처리 할 수 있습니다.
 
-async 예약어를 사용하려면 반환 타입이 **<span style="color: rgb(107, 173, 222);">System.Threading.Tasks.Task&lt;TResult&gt;</span>** 이거나<br/>
+그리고 async 예약어를 사용하려면 반환 타입이 **<span style="color: rgb(107, 173, 222);">System.Threading.Tasks.Task&lt;TResult&gt;</span>** 이거나<br/>
 결과가 없는 비동기 작업이라면 **<span style="color: rgb(107, 173, 222);">System.Threading.Tasks.Task</span>** 타입이거나<br/>
 void 반환 메서드에서 사용할 수 있습니다.<br/>
 사실 위 3가지 반환 메서드 외 '일반화된 비동기 반환 형식'의 **<span style="color: rgb(107, 173, 222);">System.Threading.Tasks.ValueTask<T><span>** 타입도 사용이 가능합니다.<br/>
 이 부분은 다음 포스트를 참조하면 됩니다. [링크](https://tyeom.github.io/c%23/2022/01/13/C-%EC%BB%A4%EC%8A%A4%ED%85%80-%EB%B9%84%EB%8F%99%EA%B8%B0-Task.html)
 
+await 예약어에 대해 계속해서 설명을 하면 메서드 내에서 동기로 코드를 수행하다가 await 구문을 만나면 해당 메서드에서 내에서 비동기 수행 스레드는 현재 스레드의 컨텍스트를 캡쳐하고 아직 작업이 완료 되지 않은 **<span style="color: rgb(107, 173, 222);">System.Threading.Tasks.Task</span>** 타입 또는 **<span style="color: rgb(107, 173, 222);">System.Threading.Tasks.Task&lt;TResult&gt;</span>** 를 즉시 반환 합니다. (위 예제에서는 WorkAsync() 메서드가 됩니다.)<br/>
+그리고선 async메서드를 호출한 메서드에서 그 다음 구문을 계속해서 수행해 나갑니다. 그러다가 비동기 코드 처리가 완료 되면 다시 await 이후 구문을 수행하게 됩니다.<br/>
+이런 내부 처리 동작으로 스레드 블로킹이 되지 않고 자체 콜백 처리로 깔끔한 코드로 표현이 가능 합니다.
+
+이런 처리 과정을 순서대로 정리해본다면 (winform)<br/>
+```cs
+private Task<bool> WorkAsync()
+{
+  return Task.Run<bool>(() =>
+  {
+    for (int i = 0; i < 10; i++)
+    {
+      System.Threading.Thread.Sleep(1000);
+      Console.WriteLine(i);
+    }
+  
+    return true;
+  });
+}
+
+private async Task GetWorkResult()
+{
+  bool result = await this.WorkAsync();
+  Console.WriteLine(result);
+}
+```
+
+```cs
+private void button_Click(object sender, EventArgs e)
+{
+  Console.WriteLine("Logic1");
+  Console.WriteLine("Logic2");
+  this.GetWorkResult();
+  Console.WriteLine("Logic3");
+```
+
+출력 결과는<br/>
+```
+Logic1
+Logic2
+Logic3
+0
+1
+2
+3
+4
+5
+6
+7
+8
+9
+True
+```
+
+위 코드의 처리 순서는 다음과 같이 설명할 수 있습니다.<br/>
+```
+1. 메인 UI스레드에서 'Logic1', 'Logic2' 출력
+2. GetWorkResult() 메서드 진입   [메인 스레드에서 처리]
+  2-1. bool result = await this.WorkAsync(); 구문 수행    [메인 스레드에서 처리]
+  2-2. WorkAsync() 메서드가 작업이 끝나지 않은 **<span style="color: rgb(107, 173, 222);">System.Threading.Tasks.Task&lt;TResult&gt;</span>** 를 반환하면 메인 스레드는 바로 리턴    [메인 스레드에서 처리]
+3. 메인 스레드는 계속해서 'Logic3' 출력
+4. 3번 작업과 동시에 WorkAsync() 메서드내의 **<span style="color: rgb(107, 173, 222);">System.Threading.Tasks.Task</span>** 로 처리 되는 비동기 작업을 스레드 풀에서 새로운 스레드를 가져와 별도의 스레드로 처리 합니다.    [작업 스레드에서 처리]
+5. 4번 비동기 작업이 완료 되면 await이후 구문 처리   [메인 스레드에서 처리 (＊ConfigureAwait() 메서드 호출에 따라 항상 그렇진 않습니다.)]
+```
+
+사실 위와 같은 내부적 동작은 async／await 예약어를 사용하고 컴파일 할때 컴파일러에 의해 새로운 IL코드가 생성되어져서 가능한 것 입니다.<br/>
+이렇게 컴파일러에 의해 자동 생성된 코드로 인해 개발자 입장에서 편리하게 사용할 수 있는 것을 Syntatic sugar 라고 표현 합니다.
+
+그럼 위 코드가 컴파일 되었을때 어떻게 변경되는지 간단히 한번 살펴보겠습니다. (위의 처리 순서만 이해가 된다면 이 부분은 자세하게 살펴볼 필요는 없습니다.)<br/>
+await 예약어가 사용된 async GetWorkResult() 메서드는 아래와 같이 컴파일러에 의해 변경 되었습니다.<br/>
+```cs
+[AsyncStateMachine(typeof (Form2.<GetWorkResult>d__13))]
+[DebuggerStepThrough]
+private Task GetWorkResult()
+{
+  Form2.<GetWorkResult>d__13 stateMachine = new Form2.<GetWorkResult>d__13();
+  __builder = AsyncTaskMethodBuilder.Create();
+  __this = this;
+  __state = -1;
+  _builder.Start<Form2.<GetWorkResult>d__13>(ref stateMachine);
+  return __builder.Task;
+}
+```
+
+살펴보면 StateMachine 로직이 생성된 **<span style="color: rgb(107, 173, 222);">System.Runtime.CompilerServices.IAsyncStateMachine</span> 인터페이스가 상속된 GetWorkResult 클래스 생성하고 상태정보를 -1로 초기화 하고 **<span style="color: rgb(107, 173, 222);">System.Runtime.CompilerServices.AsyncTaskMethodBuilder</span>** 구조체를 생성해서 실행 합니다.
+
+그리고 Create() 메서드 호출로 **<span style="color: rgb(107, 173, 222);">System.Runtime.CompilerServices.AsyncTaskMethodBuilder</span>** 구조체가 생성되고 그 안에 정의 되어 있는<br/>
+**<span style="color: rgb(107, 173, 222);">System.Runtime.CompilerServices.AsyncTaskMethodBuilder<TResult></span>** 구조체도 같이 초기화 시켜 줍니다. 그리고는 비동기 작업 Task를 바로 반환 합니다.
+
+그럼 자동 생성된 StateMachine이 포함되어 있는 클래스는 어떻게 되어 있는지 보겠습니다. 위에서 실행하고 있는 자동 생성된 GetWorkResult 클래스 입니다.<br/>
+```cs
+[CompilerGenerated]
+private sealed class <GetWorkResult>d__13 : IAsyncStateMachine
+{
+  public int <>1__state;
+  public AsyncTaskMethodBuilder <>t__builder;
+  public Form2 <>4__this;
+  private bool <result>5__1;
+  private bool <>s__2;
+  private TaskAwaiter<bool> <>u__1;
+  
+  public <GetWorkResult>d__13()
+  {
+    base..ctor();
+  }
+  
+  void IAsyncStateMachine.MoveNext()
+  {
+    int num1 = this.<>1__state;
+    try
+    {
+      TaskAwaiter<bool> awaiter;
+      int num2;
+      if (num1 != 0)
+      {
+        /////////// await 이전 구문 [메인 스레드에서 처리] ///////////
+  
+        awaiter = this.<>4__this.WorkAsync().GetAwaiter();  // 비동기 작업의 System.Runtime.CompilerServices.TaskAwaiter<TResult> 구조체를 가져 옵니다.
+        if (!awaiter.IsCompleted)
+        {
+          this.<>1__state = num2 = 0;
+          this.<>u__1 = awaiter;
+          Form2.<GetWorkResult>d__13 stateMachine = this;
+          this.<>t__builder.AwaitUnsafeOnCompleted<TaskAwaiter<bool>, Form2.<GetWorkResult>d__13>(ref awaiter, ref stateMachine);
+          return;
+        }
+      }
+      else
+      {
+        awaiter = this.<>u__1;
+        this.<>u__1 = new TaskAwaiter<bool>();
+        this.<>1__state = num2 = -1;
+      }
+      this.<>s__2 = awaiter.GetResult();
+  
+      /////////// await 이후 구문 ///////////
+      
+      this.<result>5__1 = this.<>s__2;
+      Console.WriteLine(this.<result>5__1);
+    }
+    catch (Exception ex)
+    {
+      this.<>1__state = -2;
+      this.<>t__builder.SetException(ex);
+      return;
+    }
+  
+    this.<>1__state = -2;
+    this.<>t__builder.SetResult();
+  }
+  
+  [DebuggerHidden]
+  void IAsyncStateMachine.SetStateMachine(IAsyncStateMachine stateMachine)
+  {
+  }
+}
+```
+
+코드를 보면 알 수 있듯이 await 예약어 기준으로 이전 로직과 이후 로직을 분리하고 작업 전, 완료의 상태를 구분하고 있습니다.<br/>
+비동기 작업의 **<span style="color: rgb(107, 173, 222);">System.Runtime.CompilerServices.TaskAwaiter<TResult></span>** 구조체를 가져와서 Task가 끝났는지 체크를 합니다.<br/>
+아직 완료 되지 않았다면 **<span style="color: rgb(107, 173, 222);">System.Runtime.CompilerServices.AsyncTaskMethodBuilder</span>** 의 AwaitUnsafeOnCompleted<TAwaiter, TStateMachine>() 메서드를 통해 작업 완료 이후 콜백 처리 델리게이트를 등록합니다. 이 처리는 해당 Task완료 후 .ContinueWith(t => { MoveNext() }); 로 하는 것과 동일합니다.
+
+결국 비동기 작업이 완료 되면 MoveNext()메서드가 호출되고 this.<>1__state 값이 -1로 바뀌고 나서 await 이후 구문이 수행 됩니다.<br/>
+또한 이 StateMachine 코드는 반복문 안에서 await을 하는지 여부에 따라 goto 문으로 처리되기도 합니다.
+
+await과 SynchronizationContext 의 관계
+-
+
+그럼 어떻게 await이후 메인 스레드로 다시 처리가 되는걸까요? 정확히는 비동기 작업 스레드를 호출한 스레드를 어떻게 찾을 수 있는 것일까요?<br/>
+그 처리는 **<span style="color: rgb(107, 173, 222);">System.Threading.SynchronizationContext</span>** 클래스에 있습니다<br/>
+닷넷의 모든 스레드는 하나 이상의 **<span style="color: rgb(107, 173, 222);">System.Threading.SynchronizationContext</span>** 를 가지고 있습니다.<br/>
+await 으로 스레드 풀에서 새로운 작업 스레드로 비동기 작업이 호출 될때 **<span style="color: rgb(107, 173, 222);">System.Threading.SynchronizationContext</span>** 클래스의<br/>
+Current 속성으로 현재 컨텍스트를 캡쳐해둔 후 await이후 작업을 처리하게 됩니다.<br/>
+하지만 UI가 없는 콘솔 앱 등의 경우는 UI 처리를 위한 동기화 처리가 필요 없으므로 **<span style="color: rgb(107, 173, 222);">System.Threading.SynchronizationContext</span>** 의 Current가 없습니다.
+
+따라서 아래 코드는
+```cs
+private async Task<string> GetString()
+{
+  string result = await Task.Run<string>(() =>
+  {
+    System.Threading.Thread.Sleep(2000);
+    return "test";
+  });
+  
+  return result;
+}
+
+string result = await this.GetString();
+Console.WriteLine(result);
+```
+
+이렇게 처리 되는 것과 동일합니다.
+```cs
+SynchronizationContext sc = SynchronizationContext.Current;
+Task.Run<string>(() =>
+{
+  System.Threading.Thread.Sleep(2000);
+  return "test";
+})
+.ContinueWith(t =>
+{
+  sc.Post((p) =>
+  {
+    string result = t.Result;
+    Console.WriteLine(result);
+  }, null);
+});
+```
