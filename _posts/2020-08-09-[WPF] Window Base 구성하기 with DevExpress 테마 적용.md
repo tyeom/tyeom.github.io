@@ -215,8 +215,10 @@ WPF프로젝트 개발에서 커스텀 하게 윈도우 크롬을 제거하고<b
 크롬을 없애고, 타이틀바와 컨트롤박스를 커스텀하게 꾸민 것이다.<br/>
 
 실제 각 윈도우에서 사용되는 스타일은<br/>
-<Style x:Key="WindowBase" TargetType="{x:Type dx:ThemedWindow}"> 영역의<br/>
-WindowBase 스타일 이다.<br/>
+```xml
+<Style x:Key="WindowBase" TargetType="{x:Type dx:ThemedWindow}">
+```
+영역의 WindowBase 스타일 이다.<br/>
 TargetType이 dx:ThemedWindow인 것은 DevExpress의 테마 윈도우를 기본으로 사용하기 위해 타입을 저렇게 설정했다.
 <br/>
 <br/>
@@ -234,3 +236,204 @@ ContentPresenter를 AdornerDecorator로 감싼 이유는 <span style="color: #2D
         </ResourceDictionary.MergedDictionaries>
 ...
 ```
+
+위 처럼 App.xaml에서 App Style에 ResourceDictionary를 머지 시켜준다. 머지 후 Static하게 해당 스타일에 접근이 가능하다. (StaticResource)<br/>
+여기까지 되었다면 윈도우의 기본 스타일 사용 구성이 모두 끝난것이다. 이제 윈도우를 생성 할때마다 해당 스타일을 적용만 해주면 된다.<br/>
+
+DevExpress의 dx:ThemedWindow 윈도우를 생성하고 WindowBaseStyle 스타일을 적용해 보자.
+
+![image](https://user-images.githubusercontent.com/13028129/150250027-e37435f7-0226-4959-91ab-c9ddec476d6f.png)
+
+![image](https://user-images.githubusercontent.com/13028129/150250119-0f14bd6b-f5ac-44f4-89d7-f57a53096f0c.png)
+
+깔끔하게 기본 스타일이 반영되고 해당 윈도우의 컨텐츠까지 모두 반영된것이 디자이너상으로 바로 표시된다.
+
+```
+**※ 참고**
+윈도우 기본 스타일을 적용하고 컨트롤박스의 각 버튼이 실제 동작되려면
+윈도우 기본 스타일이 적용된 해당 윈도우에도 크롬이 제거 되어야 정상 마우스 이벤트가 발생된다.
+```
+
+위 상태에서 DevExpress의 테마적용도 정상 적용되서 표시된다.
+```
+dx:ThemeManager.ThemeName="Office2019DarkGray"
+```
+
+WindowBaseStyle 코드비하인드 class 구성
+-
+
+WindowBaseStyle의 ResourceDictionary에 포함되어 있는 각 여러 컨트롤의 이벤트를 직접 코드비하인드 상에서 처리할 수 있다.<br/>
+단순히 다음과 같이 ResourceDictionary에 class만 연결시켜 주면 된다.
+![image](https://user-images.githubusercontent.com/13028129/150251984-d055bbc6-bcfa-4671-9fe3-f2edada1da72.png)
+
+그리고 해당 클래스는 다음과 같이 추가할 수 있다.
+
+**[WindowBaseStyle.cs]**
+```cs
+/// <summary>
+/// WindowBaseStyle.xaml(ResourceDictionary) 의 비하인드 코드 Class
+/// </summary>
+public partial class WindowBaseStyle : ResourceDictionary
+{
+    public WindowBaseStyle()
+    {
+            
+    }
+}
+```
+
+WindowBase class 만들기
+-
+
+WindowBaseStyle에는 커스텀화된 타이틀바, 컨트롤박스가 구성되어 있는데 공통적인 기능 구현을<br/>
+각각 윈도우에서 처리하게 되면 중복코드가 발생되고 추후 유지보수 또한 좋지 못하다.<br/>
+그래서 공통적인 기능을 처리 할 수 있는 WindowBase class를 만들고 해당 클래스를 상속받도록 처리하였다.<br/>
+
+먼저 윈도우의 공통 처리부를 담당하는 WindowBase class를 추가한다.
+
+**[WindowBase.cs]**
+```cs
+using DevExpress.Xpf.Core;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Controls.Primitives;
+using System.Windows.Data;
+using System.Windows.Documents;
+using System.Windows.Input;
+using System.Windows.Media;
+using System.Windows.Media.Imaging;
+using System.Windows.Shapes;
+ 
+/// <summary>
+/// BaseWindow.xaml에 대한 상호 작용 논리
+/// </summary>
+public class WindowBase : ThemedWindow
+{
+    /// <summary>
+    /// 기존 창 크기
+    /// </summary>
+    private Rect _originWindow;
+ 
+    public WindowBase()
+    {
+        this.Loaded += this.WindowBase_Loaded;
+        this.Closing += this.WindowBase_Closing;
+    }
+ 
+    public override void OnApplyTemplate()
+    {
+        base.OnApplyTemplate();
+ 
+        this.ControlBoxEventSubscribe();
+        this.WindowBaseMoveEventSubscribe();
+    }
+ 
+    private void WindowBase_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+    {
+        this.SaveLayout();
+    }
+ 
+    private void WindowBase_Loaded(object sender, RoutedEventArgs e)
+    {
+        this.LoadLayout();
+    }
+ 
+    protected virtual void LoadLayout()
+    {
+    }
+ 
+    protected virtual void SaveLayout()
+    {
+    }
+ 
+    /// <summary>
+    /// WindowBase Style ControlBox Event Handler
+    /// </summary>
+    private void ControlBoxEventSubscribe()
+    {
+        ToggleButton maximizeBtn = GetTemplateChild("xMaximizeToggleButton") as ToggleButton;
+        if (maximizeBtn != null)
+        {
+            maximizeBtn.Click += new RoutedEventHandler(delegate (Object s, RoutedEventArgs e)
+            {
+                this.WindowState = maximizeBtn.IsChecked == true ? WindowState.Normal : WindowState.Maximized;
+            });
+        }
+ 
+        Button minimizeBtn = GetTemplateChild("xMinimizeToggleButton") as Button;
+        if (minimizeBtn != null)
+        {
+            minimizeBtn.Click += new RoutedEventHandler(delegate (Object s, RoutedEventArgs e)
+            {
+                this.WindowState = WindowState.Minimized;
+            });
+        }
+ 
+        Button cancelBtn = GetTemplateChild("xCloseButton") as Button;
+        if (cancelBtn != null)
+        {
+            cancelBtn.Click += new RoutedEventHandler(delegate (Object s, RoutedEventArgs e)
+            {
+                this.Close();
+            });
+        }    
+    }
+ 
+    /// <summary>
+    /// WindowBase Style Window Move Event Handler
+    /// </summary>
+    private void WindowBaseMoveEventSubscribe()
+    {
+        Grid titleGrid = GetTemplateChild("xTitleGrid") as Grid;
+        if (titleGrid != null)
+        {
+            titleGrid.MouseLeftButtonDown += new MouseButtonEventHandler(delegate (object s, MouseButtonEventArgs e)
+            {
+                if (e.ChangedButton == MouseButton.Left && e.ClickCount == 2)
+                {
+                    this.WindowState = this.WindowState == WindowState.Maximized ? WindowState.Normal : WindowState.Maximized;
+ 
+                    _originWindow.Width = this.Width;
+                    _originWindow.Height = this.Height;
+                }
+                else if (e.LeftButton == MouseButtonState.Pressed)
+                {
+                    this.DragMove();
+                }
+            });
+ 
+            titleGrid.MouseMove += new MouseEventHandler(delegate (object s, MouseEventArgs e)
+            {
+                if (e.LeftButton != MouseButtonState.Pressed)
+                {
+                    return;
+               }
+            this.DragMove();
+            });
+        }
+    }
+}
+
+```
+
+스타일의 템플릿이 적용되면 **<span style="color: rgb(107, 173, 222);">FrameworkElement</span>**클래스의 **<span style="color: rgb(107, 173, 222);">OnApplyTemplate()</span>**메서드가 호출되는데
+해당 시점에 **<span style="color: rgb(107, 173, 222);">GetTemplateChild()</span>** 메서드를 통해 적용된 템플릿의 컨트롤을 가져올 수 있다.
+
+그리고 윈도우가 Load, Closing될때 공통적으로 처리되는 부분이 있어
+해당 이벤트 핸들러를 구성하고 공통구현부는 virtual메서드로 별도 구현해두었다.
+(해당 코드부분이 protected virtual void LoadLayout() / protected virtual void SaveLayout() 메서드다.)
+
+이렇게 만든 WindowBase class를 각 실제 윈도우에 상속시켜 사용하면 된다.
+
+xaml에서 다음과 같이
+![image](https://user-images.githubusercontent.com/13028129/150253290-516b9bac-4661-4fb2-b6d2-92be7720a270.png)
+
+cs에서는 다음과 같이
+![image](https://user-images.githubusercontent.com/13028129/150253495-01a51116-2c64-4103-9561-0ad636ad43af.png)
+
+이렇게 처리하면 각 윈도우의 공통적인 처리 구현은 WindowBase class에서 모두 처리되도록 된다.
