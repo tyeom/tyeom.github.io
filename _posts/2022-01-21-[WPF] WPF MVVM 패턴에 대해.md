@@ -58,7 +58,7 @@ public MainWindow()
 뷰의 코드비하인드에서 뷰모델 인스턴스를 생성하는 방법
 
 또는<br/>
-```xaml
+```xml
 <Window x:Class="WpfApp.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
@@ -133,7 +133,7 @@ protected override void OnStartup(StartupEventArgs e)
 이때 뷰의 변경은 ContentControl에 바인딩을 해두고 각 뷰 모델 타입에 대한 DataTemplate을 정의해서 뷰를 변경할 수 있습니다.<br/>
 즉 ViewModelProvider의 ViewModel속성 하나로 해당 속성에 뷰 모델 인스턴스를 교체해 가면서 뷰를 변경하는 것 입니다.<br/>
 **[MainWindow.xaml]**
-```xaml
+```xml
 <Window x:Class="WpfApp.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
