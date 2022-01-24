@@ -148,7 +148,7 @@ protected override void OnStartup(StartupEventArgs e)
 ```
 
 **[App.xaml]**
-```xaml
+```xml
 <Application x:Class="WpfApp.App"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
