@@ -181,11 +181,12 @@ viewModelProvider에 바인딩 되어 있는 ViewModel에 뷰 모델 교체시 �
 하나의 뷰에서 일뷰 디자인이 상황에 따라 변경 처리가 되어야 하는 경우는 **<span style="color: rgb(107, 173, 222);">System.Windows.Controls.DataTemplateSelector</span>** 을 사용해서<br/>
 처리해도 되지만 화면 디자인중 여러 부분이 다르고 다소 복잡한 화면이라면 차라리 뷰를 따로 디자인해서 나누고 하나의 뷰 모델을 사용하는 것이 더 효과적일 수 있습니다.<br/>
 
-DataTemplate의 DataType 내부적으로 리소스의 Key로 관리 되기 때문에 하나의 DataType만 정의할 수 있습니다.
+DataTemplate의 DataType 내부적으로 리소스의 Key로 관리 되기 때문에 하나의 DataType만 정의가 가능하므로 뷰와 뷰 모델은 1:1 설정으로만 이루어질 수 있습니다.<br/>
 ![image](https://user-images.githubusercontent.com/13028129/150730440-665a265e-ac49-4402-90b7-5f93f7064591.png)<br/>
-(DataTemplate의 DataType이 여러개 정의 되어 있을때 런타임시 익셉션 발생)
+**(DataTemplate의 DataType이 여러개 정의 되어 있을때 런타임시 익셉션 발생)**
 
-그리고 뷰가 표시 될때 무조건 재 생성 되어 렌더링 처리 됩니다. 이 부분은 추가 작접을 통해 캐시 처리 등을 구현해야 합니다.
+위 처럼 여러개의 DataType을 정의하면 런타임시 익셉션이 발생 됩니다.<br/>
+또 하나의 단점은 뷰가 표시 될때 무조건 재 생성 되어 렌더링 처리 되는데 이 부분은 추가 작접을 통해 캐시 처리 등을 구현해야 하는 번거로움과 효율적인 캐싱을 하려면 개발자의 역량을 필요로 하는 단점이 있습니다.
 
 
 뷰 전환 방법 2
