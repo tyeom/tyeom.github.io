@@ -84,19 +84,19 @@ MS Docs 의 MVVM 패턴 내용이나 다른 MVVM 패턴 내용에 대해서도 '
 ```cs
 public class ViewModelProvider : INotifyPropertyChanged
 {
+  public event PropertyChangedEventHandler PropertyChanged;
+
   private BaseViewModel _viewModel
   public BaseViewModel ViewModel
   { 
-			get => _viewModel;
-			set
-      {
-        _viewModel = value;
-        OnPropertyChanged();
-      }
-		}
-    
-  #region INotifyPropertyChanged Members
-  public event PropertyChangedEventHandler PropertyChanged;
+    get => _viewModel;
+    set
+    {
+      _viewModel = value;
+      OnPropertyChanged();
+    }
+  }
+  
   
   public void OnPropertyChanged([CallerMemberName] string propertyName = null)
   {
@@ -107,7 +107,6 @@ public class ViewModelProvider : INotifyPropertyChanged
       handler(this, new PropertyChangedEventArgs(propertyName));
     }
   }
-  #endregion
 }
 ```
 
