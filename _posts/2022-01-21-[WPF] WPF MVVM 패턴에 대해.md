@@ -539,5 +539,6 @@ public 뷰1ViewModel(INavigationService navigationService)
 }
 ```
 
+이렇게 MVVM 바인딩을 통한 화면 전환 방법에 대해 알아 보았습니다.
 # 계속해서 작성중...
 
