@@ -1098,6 +1098,8 @@ EnumToVisConverter 컨버터로 각 타입에 맞게 Visibility처리 합니다.
 dim처리로 뒷 부분 컨텐츠는 사용자가 조작할 수 없도록 처리했습니다.<br/>
 IsBackgroundDisable 기본 값을 False로 해서 해당 속성 설정이 없어도 기본적으로 dim처리가 되고 True인 경우 dim처리 없이 그냥 메세지 팝업만 표시 되도록 했습니다.
 
+### 메세지 팝업 컨트롤 사용하기
+
 이렇게 구현된 메세지 팝업 컨트롤은 메인 윈도우에 미리 메세지 팝업의 타입별로 모두 미리 정의해 놓고 IsPoen 속성으로 표시할 수 있습니다.<br/>
 **[MainWindow.xaml]**
 ```xml
