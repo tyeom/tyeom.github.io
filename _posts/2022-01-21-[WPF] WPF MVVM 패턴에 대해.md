@@ -378,6 +378,11 @@ public class EnumDescriptionConverter<T> : EnumConverter
   {
   }
   
+  public override bool CanConvertTo(ITypeDescriptorContext? context, Type destinationType)
+  {
+    return true;
+  }
+  
   public override object ConvertTo(ITypeDescriptorContext context, System.Globalization.CultureInfo culture, object value, Type destinationType)
   {
     FieldInfo fi = value.GetType().GetField(value.ToString());
@@ -391,7 +396,8 @@ public class EnumDescriptionConverter<T> : EnumConverter
     }
     else
     {
-      return attributes[0].Description;
+      string page = attributes[0].Description;
+      return new Uri(page, UriKind.Relative);
     }
   }
 }
