@@ -380,7 +380,7 @@ public class EnumDescriptionConverter<T> : EnumConverter
   
   public override object ConvertTo(ITypeDescriptorContext context, System.Globalization.CultureInfo culture, object value, Type destinationType)
   {
-    FieldInfo fi = item.GetType().GetField(value.ToString());
+    FieldInfo fi = value.GetType().GetField(value.ToString());
     if(fi == null)
       return null;
     
