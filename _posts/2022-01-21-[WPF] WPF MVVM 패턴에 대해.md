@@ -463,7 +463,7 @@ public class NavigationService : INavigationService
   {
     try
     {
-      FieldInfo fi = item.GetType().GetField(page.ToString());
+      FieldInfo fi = page.GetType().GetField(page.ToString());
       if(fi == null)
         return;
         
