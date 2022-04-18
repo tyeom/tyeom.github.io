@@ -3,7 +3,7 @@ title: (JavaScript)  editorjs 적용하기 with ASP.NET Core
 categories: JavaScript
 key: 20220418_01
 comments: true
-tags: editorjs, 웹에디터, javascript_editor
+tags: editorjs, editorjs_parser, 웹에디터, javascript_editor
 ---
 
 개인 사이트에 자바스크립트 웹에디터 라이브러리를 현재는 [summernote](https://summernote.org/) 를 적용해서 사용하고 있는데 추가적으로 다른 에디터를 적용해볼까
