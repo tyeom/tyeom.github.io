@@ -360,8 +360,9 @@ saveButton.addEventListener('click', function () {
 이렇게 editorjs 에디터를 이용해 작성된 내용을 서버로 전송해서 데이터를 처리할 수 있습니다.<br/>
 
 > ※ 기존 데이터를 다시 에디터 상으로 Load하는 방법은 EditorJS 모듈 초기화시에<br/>
-> data 속성의 blocks 부분에 저장된 json데이터를 적용 시켜주면 됩니다.
+> data 속성의 blocks 부분에 저장된 json데이터를 적용 시켜주면 됩니다.<br/>
 > 아래 코드 참고
+
 ```cs
 [Required(ErrorMessage = "내용을 입력해 주세요!")]
 public string Contents { get; set; }
