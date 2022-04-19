@@ -185,7 +185,7 @@ ContentControl에 바인딩되어 표시 되는 방식 입니다.<br/>
 자 그럼 하나씩 구현해 보겠습니다.
 
 먼저 Popup Window로 사용될 ViewModel을 구현 합니다. ViewModelBase은 위에서 구현했던 것을 그대로 사용하겠습니다.<br/>
-**[Popup1ViewModel.cs]**
+**[PopViewModel.cs]**
 ```cs
 public class PopViewModel : ViewModelBase
 {
