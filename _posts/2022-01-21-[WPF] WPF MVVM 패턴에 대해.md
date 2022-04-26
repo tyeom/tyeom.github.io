@@ -224,35 +224,55 @@ using System.Collections.Generic;
 
 public class SimpleIoC
 {
-  private Dictionary<Type, Func<object>> _factoryDic = new Dictionary<Type, Func<object>>();
+  Dictionary<Type, Func<object>> _registrations = new Dictionary<Type, Func<object>>();
   
-  public SimpleIoC()
+  public void Register<TService, TImpl>() where TImpl : TService
   {
+    _registrations.Add(typeof(TService), () => this.Resolve(typeof(TImpl)));
   }
   
-  public void Register<TService, TImplementation>() where TImplementation : TService
+  public void Register<TService>(Func<TService> instanceCreator)
   {
-    if (_factoryDic.ContainsKey(typeof(TService)) == false)
-    {
-      _factoryDic.Add(typeof(TService),
-          () => this.Resolve(typeof(TImplementation)));
-    }
+    _registrations.Add(typeof(TService), () => instanceCreator());
   }
   
-  public object Resolve(Type key)
+  public void RegisterSingleton<TService>(TService instance)
   {
-    if (_factoryDic.ContainsKey(key))
-    {
-      var instance = _factoryDic[key];
-      return instance.DynamicInvoke();
-    }
+    _registrations.Add(typeof(TService), () => instance);
+  }
+
+  /// <summary>
+  /// 싱글톤으로 등록
+  /// </summary>
+  /// <typeparam name="TService"></typeparam>
+  /// <param name="instanceCreator"></param>
+  public void RegisterSingleton<TService>(Func<TService> instanceCreator)
+  {
+    var lazy = new Lazy<TService>(instanceCreator);
+    this.Register<TService>(() => lazy.Value);
+  }
+  
+  public object Resolve(Type serviceType)
+  {
+    Func<object> creator;
+    if (_registrations.TryGetValue(serviceType, out creator)) return creator();
+    else if (!serviceType.IsAbstract) return this.CreateInstance(serviceType);
+    else throw new InvalidOperationException("No registration for " + serviceType);
+  }
+
+  private object CreateInstance(Type implementationType)
+  {
+    var ctor = implementationType.GetConstructors().Single();
+    var parameterTypes = ctor.GetParameters().Select(p => p.ParameterType);
+    var dependencies = parameterTypes.Select(t => this.Resolve(t)).ToArray();
+    object instance = Activator.CreateInstance(implementationType, dependencies);
     
-    var ctor = key.GetConstructors().Single();
-    var ctorParamTypes = ctor.GetParameters().Select(p => p.ParameterType).ToArray();
-    var paramInstanceList = new List<Object>();
-    ctorParamTypes.ToList().ForEach(item => paramInstanceList.Add(Resolve(item)));
-    
-    return Activator.CreateInstance(key, paramInstanceList.ToArray());
+    return instance;
+  }
+
+  public void Release()
+  {
+    _registrations.Clear();
   }
 }
 ```
