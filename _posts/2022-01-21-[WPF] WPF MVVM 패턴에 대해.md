@@ -457,7 +457,7 @@ ViewPage = EViewPage.뷰1;
 
 그럼 Frame의 화면 전환 처리 역할을 하는 서비스를 하나 만들어서 이 서비스를 뷰 모델에 DI해서 사용할 수 있도록 처리해 보겠습니다.
 
-우선 Frame 화면 전환을 하는 서비스를 구현해 보겠습니다.
+우선 Frame 화면 전환을 하는 서비스를 구현해 보겠습니다.<br/>
 **[NavigationService.cs]**
 ```cs
 using System;
