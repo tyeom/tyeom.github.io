@@ -13,6 +13,9 @@ WPF로 KakaoTalk PC버전 클론 프로젝트 입니다. <br/>
 
 <!--more-->
 
+
+Git 소스코드 [링크](https://github.com/tyeom/WPFKakaoTalk)
+
 학습
 -
 
