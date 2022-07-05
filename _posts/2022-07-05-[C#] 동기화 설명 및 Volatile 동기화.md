@@ -1,6 +1,6 @@
 ---
 title: (C#) 동기화 설명 및 Volatile 동기화
-categories: WPF
+categories: C#
 key: 20220419_01
 comments: true
 tags: C# 동기화 Volatile 원자적 유저모드 커널모드
