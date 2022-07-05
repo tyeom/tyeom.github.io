@@ -96,7 +96,8 @@ Lock 획득! - id : 5 / 8s
 ```
 
 이 처리 과정을 단순히 그려보면<br/>
-![그림1](https://user-images.githubusercontent.com/13028129/177269280-427f1ad6-4264-41ca-8cc3-70afdd05e2bc.png)<br/>
+![그림1](https://user-images.githubusercontent.com/13028129/177270160-64bf7673-3534-4f8f-8b3d-2773395e074f.png)<br/>
+
 ＊그림1<br/>
 
 그림1과 같습니다.
