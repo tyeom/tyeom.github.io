@@ -197,4 +197,12 @@ elapsed time : 00:00:05.3625496
 런타임시 메모리에 할당되기 때문에 병렬처리 설계를 할때 이런 부분을 잘 파악하면서 설계해야 합니다.<br/>
 또한 False sharing은 코드로만 봤을땐 오류가 아니기 때문에 개발 시점에서도 눈에 띄지 않기 때문에 모르고 그냥 지나치게 될 수 있고 성능이 안좋은 상태로 서비스 될 수 있습니다.
 
+메모리 접근 패턴
+-
+
+관련해서 같은 문제로 행렬 구조의 배열을 탐색할때 열(Col)에서 행(Row)을 탐색할때 **근접해 있는 행의 앞.뒤도 같이 읽기 때문에 속도가 느린** 반면<br/>
+행(Row)에서 각 열(Col)을 탐색하는 것이 더 빠른 속도 결과를 볼 수 있습니다.
+
+[.NET Matters(False Sharing) 참고 링크](https://docs.microsoft.com/en-us/archive/msdn-magazine/2008/october/net-matters-false-sharing)
+
 {% include content_adsense.html %}
