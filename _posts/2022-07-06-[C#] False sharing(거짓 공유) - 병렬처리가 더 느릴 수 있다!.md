@@ -93,8 +93,9 @@ elapsed time : 00:00:10.6069792
 
 싱글 스레드가 더 빠른 결과가 나옵니다! 왜 이런상황이 나오는 걸까요?<br/>
 우선 원인을 파악해 보려면 CPU의 캐시 구조와 특성에 대해서 알아보아야 합니다 위 코드내용을 기반으로 보면 num1과 num2는 대략적으로 메모리에 다음과 같이 할당 됩니다.<br/>
-![그림3](https://user-images.githubusercontent.com/13028129/177656130-5f3ea35b-134b-4022-bc19-4c373b25c3f5.png)
+![그림3](https://user-images.githubusercontent.com/13028129/177661960-a51ac313-e091-4f04-a373-58133b14c799.png)
 <br/>
+
 
 그리고 병렬 처리되는 PC의 CPU 코어가 4개라고 가정한다면 CPU구조는 다음과 같습니다.<br/>
 ![그림4](https://user-images.githubusercontent.com/13028129/177659298-4c3c0ec5-5f5e-4df7-94a6-3f75f70546b3.png)
