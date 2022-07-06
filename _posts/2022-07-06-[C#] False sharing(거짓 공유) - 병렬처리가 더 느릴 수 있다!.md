@@ -201,7 +201,41 @@ elapsed time : 00:00:05.3625496
 -
 
 관련해서 같은 문제로 행렬 구조의 배열을 탐색할때 열(Col)에서 행(Row)을 탐색할때 **근접해 있는 행의 앞.뒤도 같이 읽기 때문에 속도가 느린** 반면<br/>
-행(Row)에서 각 열(Col)을 탐색하는 것이 더 빠른 속도 결과를 볼 수 있습니다.
+행(Row)에서 각 열(Col)을 탐색하는 것이 더 빠른 속도 결과를 볼 수 있습니다.<br/>
+```cs
+using System;
+using System.Diagnostics;
+
+class Program {
+  public static void Main() {
+    const int SIZE = 10000;
+    int[,] matrix = new int[SIZE, SIZE];
+
+    while (true) {
+      // Faster
+      Stopwatch sw = Stopwatch.StartNew();
+      for (int row = 0; row < SIZE; row++) {
+        for (int column = 0; column < SIZE; column++) {
+          matrix[row, column] = (row * SIZE) + column;
+        }
+      }
+      Console.WriteLine(sw.Elapsed);
+
+      // Slower
+      sw = Stopwatch.StartNew();
+      for (int column = 0; column < SIZE; column++) {
+        for (int row = 0; row < SIZE; row++) {
+          matrix[row, column] = (row * SIZE) + column;
+        }
+      }
+      Console.WriteLine(sw.Elapsed);
+
+      Console.WriteLine("=================");
+      Console.ReadLine();
+    }
+  }
+}
+```
 
 [.NET Matters(False Sharing) 참고 링크](https://docs.microsoft.com/en-us/archive/msdn-magazine/2008/october/net-matters-false-sharing)
 
