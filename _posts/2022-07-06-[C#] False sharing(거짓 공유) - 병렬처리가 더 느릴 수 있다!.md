@@ -164,7 +164,7 @@ num1, num2모두 동일한 값으로 증가됬음을 확인할 수 있고 처리
 ```
 False sharing : 약 17초
 Single thread : 약 10초
-False sharing : 약 5초
+Padding Solution : 약 5초
 ```
 
 Solve with local variables
