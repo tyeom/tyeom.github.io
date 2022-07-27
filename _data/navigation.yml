@@ -72,4 +72,4 @@ header:
       fr-FR   : *FR
       fr-LU   : *FR
       # @end locale config
-    url: http://arong.info
+    url: https://arong.info
