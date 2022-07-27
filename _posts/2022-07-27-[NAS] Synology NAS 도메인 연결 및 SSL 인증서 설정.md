@@ -72,7 +72,7 @@ NAS 방화벽에서 (제어판 > 보안 > 방화벽 > 규칙 편집) HTTP, Rever
 
 |![image](https://user-images.githubusercontent.com/13028129/181163751-57453d40-4d29-4a27-814f-658eb312f6b6.png)|![image](https://user-images.githubusercontent.com/13028129/181163821-12b6df71-30de-471c-97af-3d1ee5715693.png)|
 |------|---|
-</div markdown="1">
+</div>
 </details>
 
 <br/>
