@@ -72,4 +72,4 @@ header:
       fr-FR   : *FR
       fr-LU   : *FR
       # @end locale config
-    url: http://arooong.synology.me:5008
+    url: http://arong.info
