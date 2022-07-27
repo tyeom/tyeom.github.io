@@ -13,7 +13,7 @@ tags: github_blog githubblog github 도메인연결
 도메인 CName 설정
 -
 
-[dnszi.com](dnszi.com) 에서 기존 github blog 주소를 CName으로 추가 설정 합니다.<br/>
+[dnszi.com](https://dnszi.com) 에서 기존 github blog 주소를 CName으로 추가 설정 합니다.<br/>
 ![image](https://user-images.githubusercontent.com/13028129/181168160-3e24a790-f846-4dd0-ac44-08e9069a3587.png)<br/>
 ＊ 2차 도메인이 아닌 대표 도메인으로 하는 경우<br/>
 CName에 '@'(골뱅이)로 추가 하면 됩니다. (이 부분은 직접 설정해 보진 않아서 정확하지 않음)
