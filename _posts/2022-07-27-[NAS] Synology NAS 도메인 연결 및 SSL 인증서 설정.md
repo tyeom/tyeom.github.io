@@ -71,7 +71,7 @@ NAS 인증서 발급 및 적용
 > NAS 방화벽에서 (제어판 > 보안 > 방화벽 > 규칙 편집) HTTP, Reverse Proxy HTTPS (80번), Reverse Proxy(443번) 허용되어 있는지 체크가 필요합니다.
 
 |![image](https://user-images.githubusercontent.com/13028129/181163751-57453d40-4d29-4a27-814f-658eb312f6b6.png)|![image](https://user-images.githubusercontent.com/13028129/181163821-12b6df71-30de-471c-97af-3d1ee5715693.png)|
-|-|-|
+|---|---|
 </div>
 </details>
 
@@ -118,6 +118,6 @@ dnszi의 도메인관리 페이지 고급관리에서 [인증키생성]을 통�
 
 위 파일을 NAS에 업로드 하고 [제어판] > [작업 스케줄러] > [생성]을 통해 매시간 마다 해당 스크립트를 실행하는 작업을 생성 합니다.<br/>
 |![image](https://user-images.githubusercontent.com/13028129/181166284-80f2e74b-9a65-47b7-bd7f-a3d061021d6e.png)|![image](https://user-images.githubusercontent.com/13028129/181166334-a8f97918-6d5c-420b-a80a-20e7f19df713.png)|![image](https://user-images.githubusercontent.com/13028129/181166455-2af78c80-218b-467d-a57a-69680557508e.png)
-|-|-|-|
+|---|---|---|
 
 {% include content_adsense.html %}
