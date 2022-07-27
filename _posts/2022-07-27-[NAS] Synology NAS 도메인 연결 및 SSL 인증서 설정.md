@@ -12,19 +12,19 @@ tags: Synology NAS 인증서설정 도메인연결
 <!--more-->
 
 도메인을 구입했다면 해당 도메인에 사용되는 호스트를 연결해야 하는데 보통 일반 가정 환경에서는 고정 IP가 아닌 ISP업체에서 제공받는 유동 IP를 사용합니다. 그리고 공유기를 통해 N개의 PC를 사용합니다.<br/>
-고정 IP가 아니기 때문에 DDNS를 사용해야 하는데 iptimne 공유기에서 자체적으로 DDNS를 제공하거나 [dnszi.com](dnszi.com)(무료) 같은 곳이 있습니다.<br/>
-저는 [dnszi.com](dnszi.com)에서 DDNS서비스를 받아 연결해 보겠습니다.
+고정 IP가 아니기 때문에 DDNS를 사용해야 하는데 iptimne 공유기에서 자체적으로 DDNS를 제공하거나 [dnszi.com](https://dnszi.com)(무료) 같은 곳이 있습니다.<br/>
+저는 [dnszi.com](https://dnszi.com)에서 DDNS서비스를 받아 연결해 보겠습니다.
 
 DDNS 설정 및 네임서버 설정
 -
 
-[dnszi.com](dnszi.com) 회원가입 후 도메인 관리 페이지에서 다음과 같이 설정합니다.<br/>
+[dnszi.com](https://dnszi.com) 회원가입 후 도메인 관리 페이지에서 다음과 같이 설정합니다.<br/>
 ![image](https://user-images.githubusercontent.com/13028129/181153631-47c1f25a-c0e9-458f-90c2-9e52348dd104.png)
 <br/>
 호스트 IP 관리에서 A레코드를 추가 합니다. 2차 도메인 형식이 아닌 대표 도메인으로 등록하기 위해 A레코드 입력란엔 빈항목으로,<br/>
 IP 주소란에는 외부 IP주소를 입력합니다. (ISP업체에서 발급되는 IP주소) 그리고 DDNS설정은 '○'로 설정 합니다.<br/><br/>
 
-A레코드가 추가 되었다면 도메인을 구입한 관리 사이트에서 네임서버를 [dnszi.com](dnszi.com)의 네임서버로 변경합니다.<br/>
+A레코드가 추가 되었다면 도메인을 구입한 관리 사이트에서 네임서버를 [dnszi.com](https://dnszi.com)의 네임서버로 변경합니다.<br/>
 ![image](https://user-images.githubusercontent.com/13028129/181154258-ad634096-be14-4105-984c-2e28e5d7f80f.png)<br/>
 설정 후 반영되기 까지는 대략 10분 ~ 길게는 1시간 정도 걸릴 수 있습니다.<br/><br/>
 
@@ -65,17 +65,17 @@ NAS 인증서 발급 및 적용
 ![image](https://user-images.githubusercontent.com/13028129/181162452-527310be-dad5-4c87-acee-bf83cf4b01be.png)<br/><br/>
 
 <details>
-  <summary><b>인증서 발급 오류 발생시?</b></summary>
+<summary><b>인증서 발급 오류 발생시?</b></summary>
 <div markdown="1">  
-만약 인증서 발급시 잘못된 호스트 IP, 또는 역방향 프록시 관련 오류가 나온다면 DDNS A레코드 호스트 IP가 잘못 설정 되었는지<br/>
-NAS 방화벽에서 (제어판 > 보안 > 방화벽 > 규칙 편집) HTTP, Reverse Proxy HTTPS (80번), Reverse Proxy(443번) 허용되어 있는지 체크가 필요합니다.<br/>
+> 만약 인증서 발급시 잘못된 호스트 IP, 또는 역방향 프록시 관련 오류가 나온다면 DDNS A레코드 호스트 IP가 잘못 설정 되었는지
+> NAS 방화벽에서 (제어판 > 보안 > 방화벽 > 규칙 편집) HTTP, Reverse Proxy HTTPS (80번), Reverse Proxy(443번) 허용되어 있는지 체크가 필요합니다.
 
 |![image](https://user-images.githubusercontent.com/13028129/181163751-57453d40-4d29-4a27-814f-658eb312f6b6.png)|![image](https://user-images.githubusercontent.com/13028129/181163821-12b6df71-30de-471c-97af-3d1ee5715693.png)|
-|------|---|
+|-|-|
 </div>
 </details>
 
-<br/>
+
 
 추가로 상단 [설정] 메뉴에서 [구성 탭]에 보여지는 서비스란에 조금전 역방향 프록시 설정으로 지정된 도메인 서비스와 시스템 기본 설정 서비스를<br/>
 새로 발급 받은 인증서로 선택해야 합니다.<br/>
