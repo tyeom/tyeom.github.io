@@ -1,5 +1,5 @@
 ---
-title: (JavaScript) JS 비동기 처리
+title: (JavaScript) 다시 한번 기초 다지기! - JS 비동기 처리
 categories: JavaScript
 key: 20220826_01
 comments: true
