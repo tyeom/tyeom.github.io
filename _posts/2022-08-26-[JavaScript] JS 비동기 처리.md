@@ -1,5 +1,5 @@
 ---
-title: (JavaScript) js 비동기 처리
+title: (JavaScript) JS 비동기 처리
 categories: JavaScript
 key: 20220826_01
 comments: true
