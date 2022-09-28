@@ -78,6 +78,7 @@ with의 BASE_BRANCH 부분은 배포할 작업이 되는 branch명이고 BRANCH�
 
 > **※ 참고로 ACCESS_TOKEN의 개인키는 GitHub계정 설정 -> Developer settings > Personal access tokens 에서 생성할 수 있습니다.**<br/>
 ![image](https://user-images.githubusercontent.com/13028129/192908293-7c9ee827-1b03-4f9a-a212-c605d043ee83.png)
+ACCESS_TOKEN이 잘못되면 소스 커밋 후 'Deploy to Github Pages' 단계에서 **'The process '/usr/bin/git' failed with exit code 128'** 오류로 빌드 실패 오류가 발생됩니다.
 
 
 다음으로는 GitHub Pages에 호스팅하기 위해 소스코드를 형상관리할 Repository를 생성하고 해당 코드를 Commit합니다.<br/>
