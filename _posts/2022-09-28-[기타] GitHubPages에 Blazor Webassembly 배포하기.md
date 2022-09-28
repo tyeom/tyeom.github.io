@@ -63,7 +63,7 @@ jobs:
     - name: Deploy to Github Pages
       uses: JamesIves/github-pages-deploy-action@releases/v3
       with:
-        ACCESS_TOKEN: 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
+        ACCESS_TOKEN: {GitHub개인키}
         BASE_BRANCH: main # The branch the action should deploy from.
         BRANCH: master # The branch the action should deploy to.
         FOLDER: Blazor_wasm_Test/Blazor_wasm_Test/build/wwwroot # The folder the action should deploy.
@@ -71,10 +71,14 @@ jobs:
 ```
 <br/>
 설정시 확인해야 할 부분이 working-directory를 해당 Repository기준의 경로에 맞게 기입해야 합니다.<br/>
-그리고 'Deploy to Github Pages' 단계에서 with의 배포대상 FOLDER 경로 지정시 {Repository 기준경로}/build/wwwroot 로 되어야 합니다.<br/>
+그리고 'Deploy to Github Pages' 단계에서 with의 ACCESS_TOKEN 부분에 github개인키를 입력하고 배포대상 FOLDER 경로 지정시 {Repository 기준경로}/build/wwwroot 로 되어야 합니다.<br/>
 실제 빌드시 build폴더 하위로 빌드 결과 파일이 생성됩니다. 따라서 배포시에 필요한 파일들은 {Repository 기준경로}/build/wwwroot 폴더가 대상 입니다.<br/>
 with의 BASE_BRANCH 부분은 배포할 작업이 되는 branch명이고 BRANCH는 배포 대상의 branch명 입니다. 여기서는 master로 설정해주고 이후에 master branch를 생성해 줍니다.<br/>
 이렇게 해서 Actions의 워크플로우 설정파일을 생성 합니다.<br/><br/>
+
+> **※ 참고로 ACCESS_TOKEN의 개인키는 GitHub계정 설정 -> Developer settings > Personal access tokens 에서 생성할 수 있습니다.**<br/>
+![image](https://user-images.githubusercontent.com/13028129/192908293-7c9ee827-1b03-4f9a-a212-c605d043ee83.png)
+
 
 다음으로는 GitHub Pages에 호스팅하기 위해 소스코드를 형상관리할 Repository를 생성하고 해당 코드를 Commit합니다.<br/>
 아마 default branch가 **`main`** 으로 설정되어 있을텐데 GitHub Pages에 배포 대상으로 사용할 **`master`** branch를 추가로 생성합니다.<br/>
