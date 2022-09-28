@@ -241,4 +241,9 @@ GitHub의 Page는 Jekyll을 사용해서 호스팅 되는데 여기서는 Jekyll
 </html>
 ```
 
+이후 Actions 부분을 확인해 보면 자동 빌드 되고 **`master`** branch로 배포되는것을 확인할 수 있습니다.<br/>
+![image](https://user-images.githubusercontent.com/13028129/192703499-917c5db3-4ac5-40d0-9f1e-a8cc1bdfc25a.png)<br/>
+최종 URL은 https://{github ID}.github.io/Repository이름 입니다.<br/>
+https://blog.arong.info/Blazor_Test/
+
 {% include content_adsense.html %}
