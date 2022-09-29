@@ -86,6 +86,23 @@ ACCESS_TOKEN이 잘못되면 소스 커밋 후 'Deploy to Github Pages' 단계�
 ![image](https://user-images.githubusercontent.com/13028129/192690428-05930877-127d-408d-a372-3e70dcc0e8d8.png)<br/>
 ![image](https://user-images.githubusercontent.com/13028129/192690452-3e364dd9-f682-4c25-b2ee-015e562fe9ce.png)
 
+### Personal access token 암호화 하기
+Personal access token은 특정 권한을 설정하고 GitHub에서 제공하는 API등을 통해 설정을 변경할 수 있도록 하는 개인키에 해당됩니다.<br/>
+따라서 Personal access token은 자신만 알아야 하고 외부에 노출되서는 안되는 정보이기 때문에 Actions 워크플로우 설정파일 같이 공개되는 파일에 사용 할 때에는 암호화 처리를해서
+실제 값을 노출되지 않도록 처리해야 합니다.<br/>
+GitHub에서는 이런 상황의 경우 암호화된 환경변수 기능을 제공하고 있습니다. 해당 저장소의 Settings에서 좌측 메뉴중 Environments에서 설정할 수 있습니다.<br/>
+New environment를 클릭해 새로운 환경변수를 생성합니다.<br/>
+![image](https://user-images.githubusercontent.com/13028129/192911141-84125056-0cde-412a-84ac-2cb7de9dce7b.png)<br/>
+그리고 하단에 Environment secrets에서 비밀 환경변수를 추가 합니다. 환경변수에 사용될 이름을 입력하고 값 부분에 실제 Personal access token 값을 입력합니다.<br/>
+![image](https://user-images.githubusercontent.com/13028129/192911347-01b2f400-3e4d-45c0-bd2c-c31ff2a45623.png)<br/>
+추가된 비밀 환경변수는 다음과 같이 워크플로우 설정에서 사용할 수 있습니다.<br/>
+```
+${{ secrets.비밀 환경변수 이름 }}
+```
+> 암호화된 환경변수 및 암호화 값 설정 추가 설명은 다음 GitHub Doc 페이지에서 확인 가능합니다.<br/>
+> [Encrypted secrets](https://docs.github.com/en/actions/security-guides/encrypted-secrets)
+
+
 Pages 설정
 -
 
