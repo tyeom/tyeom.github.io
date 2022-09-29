@@ -97,8 +97,9 @@ New environment를 클릭해 새로운 환경변수를 생성합니다.<br/>
 ![image](https://user-images.githubusercontent.com/13028129/192911347-01b2f400-3e4d-45c0-bd2c-c31ff2a45623.png)<br/>
 추가된 비밀 환경변수는 다음과 같이 워크플로우 설정에서 사용할 수 있습니다.<br/>
 ```
-${{ secrets.비밀 환경변수 이름 }}
+$｛｛ secrets.비밀 환경변수 이름 ｝｝
 ```
+**컨텐츠 상에 대괄호 특수문자가 특정 표현식으로 처리되어 보이지 않아 별개 특수문자로 표기하였습니다.**<br/>
 > 암호화된 환경변수 및 암호화 값 설정 추가 설명은 다음 GitHub Doc 페이지에서 확인 가능합니다.<br/>
 > [Encrypted secrets](https://docs.github.com/en/actions/security-guides/encrypted-secrets)
 
