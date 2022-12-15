@@ -232,6 +232,7 @@ getPages: [
 HomeView와 FavoritesView는 AppView안에서 내비게이션으로 보여집니다. 또한 DetailView 라우트 설정시 DetailViewModel(GetX 컨트롤러)을 의존성 주입 처리 합니다.<br/>
 그리고 GetMaterialApp의 initialBinding을 통해 App초기화시 바인딩 설정을 할 수 있는데 여기서 분리 바인딩으로 상시적으로 표시되는 AppViewModel과 HomeViewModel<br/>
 그리고 데이터 요청 담당인 DataService를 의존성 주입으로 사용할 수 있도록 처리합니다.<br/>
+
 **[main.dart]**
 ```dart
 return GetMaterialApp(
