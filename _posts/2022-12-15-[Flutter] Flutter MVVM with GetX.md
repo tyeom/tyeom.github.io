@@ -14,6 +14,9 @@ MVVM 패턴에 대한 설명은 다음 아티클을 참조 하시면 됩니다. 
 
 <!--more-->
 
+> 이 글에서 다룬 코드는 다음 Repository에서 확인할 수 있습니다.<br/>
+> [Flutter_MVVM_GetX](https://github.com/tyeom/Flutter_MVVM_GetX)
+
 GetX 란?
 -
 
