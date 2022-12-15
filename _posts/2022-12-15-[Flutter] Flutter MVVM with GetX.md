@@ -463,7 +463,7 @@ GetxController는 라이프 사이클이 존재 하는데 그중 처음으로 �
 
 
 위 코드는 다음 Repository에서 확인할 수 있습니다.<br/>
-[ThreadPool_IOThread_Test](https://github.com/tyeom/Flutter_MVVM_GetX)
+[Flutter_MVVM_GetX](https://github.com/tyeom/Flutter_MVVM_GetX)
 
 
 
