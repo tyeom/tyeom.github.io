@@ -76,13 +76,32 @@ GetX는 컨트롤러라는 개념을 통해 상태관리 처리를 도와줍니�
 반응형 상태관리는 Observable처리로 데이터 변경을 감지하고 변경 통보가 이루어 집니다.<br/>
 여기서는 반응형 상태관리에 대해 간단히 살펴보겠습니다.<br/>
 반응형 상태관리로 처리하기 위해서는 해당 데이터 타입은 GetX에서 사용되는 Rx 리엑트 타입으로 사용되어야 합니다.<br/>
-| Dart | GetX (Rx) |
-| --- | --- |
-| int | RxInt |
-| bool | RxBool |
-| double | RxDouble |
-| List&lt;T&gt; | RxList&lt;T&gt; |
-| Custom Object | Rx&lt;T&gt; |
+<table>
+        <tr>
+                <th>Dart</th>
+                <th>GetX (Rx)</th>
+        </tr>
+        <tr>
+                <td>int</td>
+                <td>RxInt</td>
+        </tr>
+        <tr>
+                <td>bool</td>
+                <td>RxBool</td>
+        </tr>
+        <tr>
+                <td>double</td>
+                <td>RxDouble</td>
+        </tr>
+        <tr>
+                <td>List&lt;T&gt;</td>
+                <td>RxList&lt;T&gt;</td>
+        </tr>
+        <tr>
+                <td>Custom Object</td>
+                <td>Rx&lt;T&gt;</td>
+        </tr>
+</table>
 
 GetX Rx타입으로 변경은 각 타입의 obs확장을 통해 바로 캐스팅할 수 있습니다.<br/>
 ```dart
