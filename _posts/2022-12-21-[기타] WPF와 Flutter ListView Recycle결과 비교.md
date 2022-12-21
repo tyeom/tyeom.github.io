@@ -21,11 +21,13 @@ Flutter는 모바일 디바이스에 맞게 한번에 너무 많은 데이터를
 WPF ListView (UI 가상화 사용, Recycling모드)
 -
 
+**[WPF ListView - 100,000 data]**<br/>
 ![wpf_listview](https://user-images.githubusercontent.com/13028129/208826357-bdac359c-436e-4590-bcd1-3d81e06de02e.gif)
 
 Flutter ListView (RecycleView 사용)
 -
 
+**[Flutter ListView - 100,000 data]**<br/>
 ![flutter_listview](https://user-images.githubusercontent.com/13028129/208826417-1901f3d8-6da8-4323-b00d-2865db6b3bfa.gif)
 <br/><br/>
 
