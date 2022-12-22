@@ -16,8 +16,8 @@ tags: .NET C# Thread 대기열 Channel Producer Consumer
 보다 비동기적으로 좀 더 많은 기능을 제공하고 있습니다. 또한 내부적으로 **<span style="color: rgb(107, 173, 222);">System.Threading.Tasks.ValueTask </span>** 구조체를 사용하여 성능과 메모리의 효율성도 뛰어납니다.
 그럼 간단한 예제를 통해 알아보겠습니다.
 
-이 글에서 다루는 코드는 다음 Repository에서 확인할 수 있습니다.<br/>
-[Code_check - ChannelExample](https://github.com/tyeom/code_check/tree/main/TestSample/csharp/ChannelExample)
+> 이 글에서 다루는 코드는 다음 Repository에서 확인할 수 있습니다.<br/>
+> [Code_check - ChannelExample](https://github.com/tyeom/code_check/tree/main/TestSample/csharp/ChannelExample)
 
 
 기본적인 ConcurrentQueue 처리
