@@ -14,11 +14,13 @@ tags: .NET C# Thread 대기열 Channel Producer Consumer
 <!--more-->
 
 ***
+
 > ※ 추가 설명<br/>
 > [TPL Dataflow 라이브러리](https://learn.microsoft.com/ko-kr/dotnet/standard/parallel-programming/dataflow-task-parallel-library)를 이용해서도 생산/소비 패턴형식의 구현을 할 수 있습니다.<br/>
 > 하지만 생산/소비 패턴의 구성은 TPL Dataflow보다 Channel을 사용하는 것이 성능이 더 빠르고 코드도 간결하게 작성이 가능합니다.<br/>
 > 반면 Channel은 데이터흐름 기능은 제공하지 않기 때문에 이런 처리가 필요한 경우 TPL Dataflow를 사용해야 합니다.<br/>
 > TPL Dataflow는 다음 글을 참조하면 됩니다. : [TPL Dataflow 라이브러리](https://blog.arong.info/c%23/2022/12/23/C-TPL-Dataflow-%EB%9D%BC%EC%9D%B4%EB%B8%8C%EB%9F%AC%EB%A6%AC.html)
+
 ***
 
 **<span style="color: rgb(107, 173, 222);">System.Threading.Channels.Channel&lt;T&gt;</span>** 클래스는 **<span style="color: rgb(107, 173, 222);">System.Collections.Concurrent.ConcurrentQueue&lt;T&gt;</span>** 클래스와 동일하게 큐에 항목을 추가하고 꺼내는 제공을 하지만
