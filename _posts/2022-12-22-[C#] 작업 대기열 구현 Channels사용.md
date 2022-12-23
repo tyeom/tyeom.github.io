@@ -8,7 +8,8 @@ tags: .NET C# Thread 대기열 Channel Producer Consumer
 
 .NET Core 3.0부터 포함 API로 제공되는 **<span style="color: rgb(107, 173, 222);">System.Threading.Channels.Channel&lt;T&gt;</span>** 클래스에 대해 알아보도록 하겠습니다.<br/>
 **<span style="color: rgb(107, 173, 222);">System.Threading.Channels.Channel&lt;T&gt;</span>** 클래스는 비동기 작업에서 메세지 처리를 스레드로 부터 안전하게 처리할 수 있도록<br/>
-간편한 방식으로 작업 대기열을 구성할 수 있도록 제공합니다.
+간편한 방식으로 작업 대기열을 구성할 수 있도록 제공합니다.<br/>
+참고로 .NEY Core 3.0 이전 버전에서는 NuGet 패키지를 통해 사용해볼 수 있습니다. [NuGet - System.Threading.Channels](https://www.nuget.org/packages/System.Threading.Channels)
 
 <!--more-->
 
