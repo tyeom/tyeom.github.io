@@ -22,8 +22,8 @@ WPF에서 데이터 바인딩을 통해 개체를 참조하는 방식을 크게 
 > [Code_check - CustomTypeDescriptorEx](https://github.com/tyeom/code_check/tree/main/TestSample/csharp/CustomTypeDescriptorEx)
 
 이번 글에서는 **<span style="color: rgb(107, 173, 222);">System.ComponentModel.CustomTypeDescriptor</span>** 클래스를 사용해 런타임시 동적으로 속성 바인딩 하는 방법을 알아 봅니다.<br/>
-바인딩 속성이 뷰 포트에 보여질때 리플렉션으로 해당 속성을 검색하고 접근하기 때문에 **성능면에서는 좋지 않기 때문에 사실 이런 방식의 바인딩이 필요할지 의문이지만 이러한 방법으로 동적 바인딩 
-처리가 가능하다는 것만 알면 좋을 것 같습니다.**<br/><br/>
+바인딩 속성이 뷰 포트에 보여질때 리플렉션으로 해당 속성을 검색하고 접근하기 때문에 **<u>성능면에서는 좋지 않기 때문에 사실 이런 방식의 바인딩이 필요할지 의문이지만 이러한 방법으로 동적 바인딩 
+처리가 가능하다는 것만 알면 좋을 것 같습니다.</u>**<br/><br/>
 
 WPF는 데이터 바인딩의 소스가 **<span style="color: rgb(107, 173, 222);">System.ComponentModel.ICustomTypeDescriptor</span>** 인터페이스가 구현 되어 있는 경우 바인딩에 노출하는 속성 특성 컬렉션 **<span style="color: rgb(107, 173, 222);">System.ComponentModel.PropertyDescriptorCollection</span>** 을 요청합니다.<br/>
 따라서 뷰 포트에 표시될 바인딩 속성이 있다면 WPF 데이터 바인딩 엔진은 **<span style="color: rgb(107, 173, 222);">System.ComponentModel.ICustomTypeDescriptor.GetProperties()</span>** 메서드를 호출하고 해당 메서드에서 
@@ -223,7 +223,7 @@ public class DataModel : ModelBase
     //}
 }
 ```
-(데이터 바인딩 대상 클래스인 비어있는 DataModel 클래스)<br/><br/>
+**(데이터 바인딩 대상 클래스인 비어있는 DataModel 클래스)**<br/><br/>
 
 **[MainViewModel.cs]**
 ```cs
