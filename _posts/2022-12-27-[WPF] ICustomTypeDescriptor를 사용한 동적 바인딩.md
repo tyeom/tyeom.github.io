@@ -303,7 +303,7 @@ public class MainViewModel
 
 MainViewModel에서는 DataModel 인스턴스를 생성하고 동적으로 바인딩 대상의 속성 특성을 추가합니다. 그리고 그렇게 추가된 DataModel의 컬렉션을 리스트뷰에 바인딩 처리 합니다.<br/>
 **[MainWindow.xaml]**
-```xam
+```xml
 <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="*"/>
