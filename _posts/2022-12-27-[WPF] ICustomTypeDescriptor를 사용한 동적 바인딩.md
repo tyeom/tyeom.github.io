@@ -11,7 +11,8 @@ WPF에서 데이터 바인딩을 통해 개체를 참조하는 방식을 크게 
 리플렉션을 이용해 속성 특성을 검색하고 변경 알림을 사용하는 방법이고<br/><br/>
 
 두 번째는 **<span style="color: rgb(107, 173, 222);">System.ComponentModel.INotifyPropertyChanged</span>** 구현으로 특정 속성의 변경 알림만 구현해 주면 데이터 바인딩 엔진 자체에서 리플렉션을 사용하고 
-필요한 속성을 참조합니다.<br/><br/>
+필요한 속성을 참조합니다.<br/>
+이 경우 자체적으로 Lightweight Code Generator(LCG)를 사용해서 최적화 하기 때문에 첫 번째 방식 보다는 좀 더 나은 성능을 보입니다.<br/><br/>
 
 세 번째는 **<span style="color: rgb(107, 173, 222);">System.Windows.DependencyProperty</span>** 를 통한 바인딩 방식 입니다.<br/>
 이 경우 데이터 바인딩 엔진은 리플렉션을 사용하지 않기 때문에 속도가 가장 빠릅니다.
