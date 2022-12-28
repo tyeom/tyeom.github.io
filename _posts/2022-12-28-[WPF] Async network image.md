@@ -1,9 +1,9 @@
 ---
-title: (WPF) ICustomTypeDescriptor를 사용한 동적 바인딩
+title: (WPF) Async network image
 categories: WPF
 key: 20221228_01
 comments: true
-tags: .NET WPF 동적바인딩 CustomTypeDescriptor PropertyDescriptor 바인딩 DynamicallyBinding
+tags: .NET WPF 비동기이미지 ImageControl AsyncImageControl 비동기이미지표시
 ---
 
 WPF 기본 Image컨트롤은 네트워크상 이미지 표시를 지원합니다.<br/>
