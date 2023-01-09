@@ -375,7 +375,7 @@ await과 SynchronizationContext 의 관계
 
 그럼 어떻게 await이후 메인 스레드로 다시 처리가 되는걸까요? 정확히는 비동기 작업 스레드를 호출한 스레드를 어떻게 찾을 수 있는 것일까요?<br/>
 그 처리는 **<span style="color: rgb(107, 173, 222);">System.Threading.SynchronizationContext</span>** 클래스에 있습니다<br/>
-닷넷의 모든 스레드는 하나 이상의 **<span style="color: rgb(107, 173, 222);">System.Threading.SynchronizationContext</span>** 를 가지고 있습니다.<br/>
+닷넷의 모든 스레드는 하나 이상의 **<span style="color: rgb(107, 173, 222);">System.Threading.SynchronizationContext</span>** 를 가질 수 있습니다.<br/>
 await 으로 스레드 풀에서 새로운 작업 스레드로 비동기 작업이 호출 될때 **<span style="color: rgb(107, 173, 222);">System.Threading.SynchronizationContext</span>** 클래스의<br/>
 Current 속성으로 현재 컨텍스트를 캡쳐해둔 후 await이후 작업을 처리하게 됩니다.<br/>
 하지만 UI가 없는 콘솔 앱 등의 경우는 UI 처리를 위한 동기화 처리가 필요 없으므로 **<span style="color: rgb(107, 173, 222);">System.Threading.SynchronizationContext</span>** 의 Current가 없습니다.
