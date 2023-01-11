@@ -240,7 +240,7 @@ class TodoBloc extends Bloc<TodoEvent, TodoState> {
 ```
 
 이렇게 구현된 Bloc은 **<span style="color: rgb(107, 173, 222);">BlocProvider&lt;T&gt;</span>** 를 통해 관리되면서 생성되어야 사용할 수 있습니다.<br/>
-**<span style="color: rgb(107, 173, 222);">BlocProvider&lt;T&gt;</span>** child로 생성되는 위젯의 하위 위젯은 **<span style="color: rgb(107, 173, 222);">BlocProvider&lt;T&gt;</span>** 또는 **<span style="color: rgb(107, 173, 222);">StatefulWidget</span>** dml 
+**<span style="color: rgb(107, 173, 222);">BlocProvider&lt;T&gt;</span>** child로 생성되는 위젯의 하위 위젯은 **<span style="color: rgb(107, 173, 222);">BlocProvider&lt;T&gt;</span>** 또는 **<span style="color: rgb(107, 173, 222);">StatefulWidget</span>** 의 
 context 속성으로 특정 Bloc을 접근해서 사용 할 수 있습니다.<br/><br/>
 
 **[main.dart]**<br/>
