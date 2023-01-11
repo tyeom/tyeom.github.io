@@ -1,5 +1,5 @@
 ---
-title: (Flutter) BLoC 패턴 #1
+title: (Flutter) BLoC 패턴 ＃1
 categories: Flutter
 key: 20230110_01
 comments: true
