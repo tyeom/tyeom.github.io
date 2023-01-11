@@ -457,6 +457,17 @@ class EventsObserver extends BlocObserver {
 }
 ```
 
+**[출력 결과]**<br/>
+```
+* 생성
+flutter: onCreate -- cubit: TodoCubit
+
+* 비어 있는 데이터 상태 -> 로딩중 상태로 변경
+flutter: onChange -- cubit: TodoCubit, change: Change { currentState: Instance of 'EmptyDataState', nextState: Instance of 'LoadingState' }
+* 로딩중 상태 -> 로드완료 상태 변경
+flutter: onChange -- cubit: TodoCubit, change: Change { currentState: Instance of 'LoadingState', nextState: Instance of 'LoadedState' }
+```
+
 위 함수 외 onError(), onClose() 함수들이 있습니다.<br/>
 이렇게 정의된 **<span style="color: rgb(107, 173, 222);">BlocObserver</span>** 클래스는 **<span style="color: rgb(107, 173, 222);">Bloc&lt;Event, State&gt;</span>** 클래스의 observer 정적 속성에 할당해 주어야 합니다.<br/><br/>
 
