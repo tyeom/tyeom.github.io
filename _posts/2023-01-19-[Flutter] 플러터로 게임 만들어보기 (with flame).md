@@ -109,9 +109,14 @@ add(animation);
 ```
 
 **[결과 화면]**<br/>
-![player_ani](https://user-images.githubusercontent.com/13028129/213640293-1c9f5cfa-7791-4b8d-b67a-8318d61fb729.gif)
+![player_ani](https://user-images.githubusercontent.com/13028129/213640293-1c9f5cfa-7791-4b8d-b67a-8318d61fb729.gif)<br/><br/>
 
+이렇게 이미지를 연속 표현하여 애니메이션으로 표현할 수 있습니다.
 
+***
+
+지금까지 기본적인 flame의 주요 Game loop와 이미지를 표현하는 구성요소를 알아보았습니다.<br/>
+다음에는 사용자 액션에 따른 컴포넌트 상태 처리를 살펴보겠습니다.<br/><br/>
 
 
 ***
