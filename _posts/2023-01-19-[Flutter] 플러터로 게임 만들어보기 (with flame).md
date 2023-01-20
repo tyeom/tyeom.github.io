@@ -43,6 +43,59 @@ add() 메서드를 통해 화면에 추가 할 수 있습니다.<br/>
 또한 각 컴포넌트 또한 render() 메서드에서 어떻게 화면에 표시할지 동작을 제어할 수 있습니다.
 
 
+GameWidget
+-
+
+**<span style="color: rgb(107, 173, 222);">GameWidget&lt;T&gt;</span>** 클래스는 flame 게임 컨텐츠를 표현할 수 있는 위젯입니다.<br/>
+그래서 게임이 시작되는 화면에 가장 배치되어 집니다.
+또한 기본적으로 Flutter 프레임워크의 **<span style="color: rgb(107, 173, 222);">StatefulWidget</span>** 추상 클래스를 상속받고 있어서 Flutter 위젯중 자식으로 받을 수 있는 위젯에 포함해서 사용 가능합니다.<br/>
+기본적으로 **<span style="color: rgb(107, 173, 222);">Scaffold</span>** 위젯의 Body에 추가되서 기본 앱에 게임을 삽입하고, 기본적인 구조는 다음과 같이 처리할 수 있습니다.<br/>
+
+**[main.dart]**<br/>
+```dart
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+
+  // 이미지 로드
+  var backgroundSprite = await Flame.images.loadAll(["Backgrounds.png"]);
+
+  runApp(MaterialApp(
+    title: 'Flame Game',
+    home: GestureDetector(
+      child: Scaffold(
+        body: GameWrapper(MyGame(backgroundSprite[0])),
+      ),
+    ),
+  ));
+}
+
+class GameWrapper extends StatelessWidget {
+  final MyGame myGame;
+  const GameWrapper(this.myGame, {super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return GameWidget(game: myGame);
+  }
+}
+```
+
+**[game/my_game.dart]**<br/>
+```dart
+class MyGame extends FlameGame {
+  @override
+  onLoad() async {
+    await super.onLoad();
+  }
+
+  @override
+  void update(double dt) {
+    super.update(dt);
+  }
+}
+```
+
+
 Sprite
 -
 
@@ -52,15 +105,28 @@ Sprites된 이미지를 사용하면 연속적인 이미지를 표현할때 애�
 다음과 같은 이미지가 있습니다.<br/>
 ![Backgrounds](https://user-images.githubusercontent.com/13028129/213628182-efe99197-61b0-454a-b514-bf856baba746.png)<br/><br/>
 위 이미지는 3개 영역의 배경 이미지로 되어 있는데 **<span style="color: rgb(107, 173, 222);">SpriteComponent</span>** 로 개별 영역의 이미지로 표시할 수 있습니다.<br/>
+먼저 이미지 로드는 다음과 같이 여러개의 이미지 파일을 로드할 수 있습니다.<br/>
+
+**[main.dart]**<br/>
 ```dart
-// 이미지 로드
-var backgroundSprite = await Flame.images.loadAll(["Backgrounds.png"]);
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  // 이미지 로드
+  var backgroundSprite = await Flame.images.loadAll(["Backgrounds.png"]);
+}
+```
+
+**<span style="color: rgb(107, 173, 222);">Images</span>** 의 loadAll() 메서드는 한번에 여러 이미지 경로를 받아 여러개의 이미지를 로드 처리할 수 있고, 
+배열의 인덱스로 접근할 수 있습니다.<br/>
+이미지 로드는 비동기로 처리되서 async / await으로 대기를 해야 하며, **main() 메서드에서 비동기 처리 수행을 하기 위해서는 Flutter 엔진이 바인딩 상태가 준비**되어야 하기 때문에 **<span style="color: rgb(107, 173, 222);">WidgetsFlutterBinding</span>** 클래스의 정적 ensureInitialized() 메서드를 호출해줍니다.<br/>
+이후 이미지 로드는 다음과 같이 처리합니다.<br/>
+
+**GameWidget 부분**
+```dart
+// main에서 로드한 backgroundSprite에 접근
 var background = SpriteComponent.fromImage(backgroundSprite, Vector2(290, 0), Vector2(144, 280));
 add(background);
 ```
-
-> **<span style="color: rgb(107, 173, 222);">Images</span>** 의 loadAll() 메서드는 한번에 여러 이미지 경로를 받아<br/>
-> 여러개의 이미지를 로드 처리할 수 있고, 배열의 인덱스로 접근할 수 있습니다.
 
 **[결과 화면]**<br/>
 ![image](https://user-images.githubusercontent.com/13028129/213628766-b74cf9dc-d6c7-4c10-838d-4dbf4341e53b.png)<br/><br/>
