@@ -1,5 +1,5 @@
 ---
-title: (Flutter) 플러터로 게임 만들어보기 (with flame)
+title: (Flutter) 플러터로 게임 만들어보기 01 (with flame)
 categories: Flutter
 key: 20230119_01
 comments: true
