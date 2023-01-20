@@ -83,6 +83,9 @@ class GameWrapper extends StatelessWidget {
 **[game/my_game.dart]**<br/>
 ```dart
 class MyGame extends FlameGame {
+  final Image backgroundSprite;
+  MyGame(this.backgroundSprite) {}
+  
   @override
   onLoad() async {
     await super.onLoad();
