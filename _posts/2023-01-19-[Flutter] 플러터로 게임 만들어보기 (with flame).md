@@ -140,8 +140,8 @@ add(background);
 // 이미지 로드
 var backgroundSprite = await Flame.images.loadAll(["Backgrounds.png"]);
 var background01 = SpriteComponent.fromImage(backgroundSprite, Vector2(290, 0), Vector2(144, 280));
-var background02 = SpriteComponent.fromImage(backgroundSprite, Vector2(290, 0), Vector2(144, 280));
-var background03 = SpriteComponent.fromImage(backgroundSprite, Vector2(290, 0), Vector2(144, 280));
+var background02 = SpriteComponent.fromImage(backgroundSprite, Vector2(144, 0), Vector2(144, 280));
+var background03 = SpriteComponent.fromImage(backgroundSprite, Vector2(0, 0), Vector2(144, 280));
 
 add(background01);
 add(background02);
