@@ -43,7 +43,7 @@ add() 메서드를 통해 화면에 추가 할 수 있습니다.<br/>
 또한 각 컴포넌트 또한 render() 메서드에서 어떻게 화면에 표시할지 동작을 제어할 수 있습니다.
 
 
-Sprites
+Sprite
 -
 
 게임에서 이미지는 단독으로 개별적인 이미지 파일을 로드해서 사용될 수 도 있지만 하나의 이미지에 여러개의 컨텐츠 이미지를 모두 포함시켜<br/>
@@ -58,6 +58,9 @@ var backgroundSprite = await Flame.images.loadAll(["Backgrounds.png"]);
 var background = SpriteComponent.fromImage(backgroundSprite, Vector2(290, 0), Vector2(144, 280));
 add(background);
 ```
+
+> **<span style="color: rgb(107, 173, 222);">Images</span>** 의 loadAll() 메서드는 한번에 여러 이미지 경로를 받아<br/>
+> 여러개의 이미지를 로드 처리할 수 있고, 배열의 인덱스로 접근할 수 있습니다.
 
 **[결과 화면]**<br/>
 ![image](https://user-images.githubusercontent.com/13028129/213628766-b74cf9dc-d6c7-4c10-838d-4dbf4341e53b.png)<br/><br/>
@@ -80,7 +83,33 @@ add(background03);
 ![image](https://user-images.githubusercontent.com/13028129/213629187-75999e50-4797-46a0-9581-e440e84164a4.png)
 
 
+SpriteAnimation
+-
 
+**<span style="color: rgb(107, 173, 222);">SpriteAnimationComponent</span>** 클래스는 Sprite 처럼 특정 Sprites된 이미지의 일부를 연속으로 표현하여 애니메이션 효과를 나타낼 수 있습니다.<br/>
+![Player](https://user-images.githubusercontent.com/13028129/213638147-36def200-b7c6-4de8-859d-425f976ff8ec.png)<br/><br/>
+
+위와 같은 연속으로 애니메이션을 표현할 수 있는 이미지 한장이 있는 경우 새로로 각각 영역을 4등분 하여 다음과 같이 표현할 수 있습니다.<br/>
+```dart
+// 이미지 로드
+var spriteImag = await Flame.images.load("Player.png");
+List<Sprite> spritesGo = [
+      Sprite(spriteImag, srcPosition: Vector2(0, 0), srcSize: Vector2(24, 24)),
+      Sprite(spriteImag, srcPosition: Vector2(25, 0), srcSize: Vector2(24, 24)),
+      Sprite(spriteImag, srcPosition: Vector2(50, 0), srcSize: Vector2(24, 24)),
+      Sprite(spriteImag, srcPosition: Vector2(75, 0), srcSize: Vector2(24, 24)),
+    ];
+
+// 위 4개의 이미지를 0.15ms 시간 단위로 표현
+var animatedPlayer = SpriteAnimation.spriteList(spritesGo, stepTime: 0.15);
+// 40 x 40 사이즈 이미지로 SpriteAnimationComponent 생성
+SpriteAnimationComponent animation = SpriteAnimationComponent(
+        animation: animatedPlayer, size: Vector2(40, 40));
+add(animation);
+```
+
+**[결과 화면]**<br/>
+![player_ani](https://user-images.githubusercontent.com/13028129/213640293-1c9f5cfa-7791-4b8d-b67a-8318d61fb729.gif)
 
 
 
