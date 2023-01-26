@@ -305,6 +305,7 @@ onLoad() async {
   add(world);
   add(player);
 }
+```
 
 이렇게 여러개의 **<span style="color: rgb(107, 173, 222);">SpriteAnimation</span>** 객체를 관리해서 current속성으로 어떤 애니매이션을 표현할지 지정할 수 있습니다.
 
