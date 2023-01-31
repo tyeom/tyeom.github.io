@@ -447,6 +447,7 @@ abstract class Enemy extends SpriteGroupComponent
       destroy();
     }
 
+    // 기본 Sprite 으로 변경
     if (current == 2) current = 1;
 
     position += _moveDirection * _speed * dt;
@@ -636,7 +637,144 @@ Enemy 추상 클래스를 확장시키고 해당 고유의 Enemy 특성이 담�
 > 속도는 200, 좌.우 움직이지 못함, 해당 몹을 죽였을때 획득하는 점수 1point, 해당 몹의 hp(level * 10)
 
 그리고 기본 상태일때 이미지와 총알에 맞았을때 이미지 두개의 **<span style="color: rgb(107, 173, 222);">Sprite</span>** 를 **<span style="color: rgb(107, 173, 222);">SpriteGroupComponent</span>** 의 sprites로 지정합니다.<br/>
-마찬가지로 위와 같이 여러 형태로 각각의 Enemy를 구현해볼 수 있습니다.
+마찬가지로 위와 같이 여러 형태로 각각의 Enemy를 구현해볼 수 있습니다.<br/><br/>
+
+이렇게 만들어진 Enemy 컴포넌트를 게임상에 랜덤한 위치로 부터 출현 되도록 처리 하면 됩니다.<br/>
+이를 구현하기 위해 Enemy 컴포넌트를 관리하기 위한 EnemyManager 컴포넌트를 구현해 보겠습니다.<br/>
+일단 전체 코드는 다음과 같습니다.<br/><br/>
+
+**[managers/enemy_manager.dart]**<br/>
+```dart
+import 'dart:math';
+import 'package:flame/components.dart';
+import 'package:flame_game/components/enemy.dart';
+import 'package:flame_game/game/my_game.dart';
+
+final Random _rand = Random();
+
+class EnemyManager extends Component with HasGameRef<MyGame> {
+  late Timer _enemyTimer;
+  final Random _random = Random();
+  bool isBossDisplay = false;
+
+  EnemyManager() : super() {
+    _enemyTimer = Timer(1, onTick: _enemyTick, repeat: true);
+  }
+
+  @override
+  void onMount() {
+    super.onMount();
+    _enemyTimer.start();
+  }
+
+  @override
+  void onRemove() {
+    super.onRemove();
+    _enemyTimer.stop();
+  }
+
+  @override
+  void update(double dt) {
+    super.update(dt);
+    _enemyTimer.update(dt);
+  }
+
+  void _enemyTick() {
+    if (gameRef.buildContext == null) return;
+
+    // 0 ~ 1 사이 난수 생성 * 스크린 너비
+    // 스크린 너비 사이즈 만큼 랜덤 X 위치
+    Vector2 position = Vector2(_random.nextDouble() * gameRef.size.x, 0);
+
+    int currentScore = gameRef.gameManager.score.value;
+    int level = 1;
+    if (isBossDisplay) {
+      // 레벨5 boss는 1개만 나오도록 처리
+      // boss는 출현시 나머지 적 레벨별로 랜덤 출현
+      level = _random.nextInt(3) + 1;
+    } else {
+      level = getLevel(currentScore);
+    }
+
+    // 해당 level에 맞는 랜덤 enumy 추출
+    late Enemy enemy;
+    switch (level) {
+      case 1:
+        // level1에 해당되는 Enemy가 2개 라서 랜덤으로 생성
+        enemy = (_random.nextBool()) ? NormalEnemy01() : NormalEnemy02();
+        break;
+      case 2:
+        enemy = NormalEnemy02();
+        break;
+      case 3:
+        enemy = NormalEnemy03();
+        break;
+      case 4:
+        enemy = NormalEnemy04();
+        break;
+      case 5:
+        isBossDisplay = true;
+        enemy = BossEnemy();
+        break;
+    }
+
+    // Enemy 컴포넌트가 화면안에 유지 되도록 고정
+    position.clamp(
+      Vector2.zero() + enemy.size / 2,
+      gameRef.size - enemy.size / 2,
+    );
+
+    enemy.position = position;
+    enemy.anchor = Anchor.center;
+    gameRef.add(enemy);
+  }
+
+  void reset() {
+    _enemyTimer.start();
+  }
+
+  int getLevel(int score) {
+    int level = 1;
+
+    if (score > 40) {
+      level = 5;
+    } else if (score > 30) {
+      level = 4;
+    } else if (score > 20) {
+      level = 3;
+    } else if (score > 10) {
+      level = 2;
+    }
+
+    return level;
+  }
+
+  void destroy() {
+    _enemyTimer.stop();
+    removeFromParent();
+  }
+}
+```
+
+해당 코드를 살펴보면 **<span style="color: rgb(107, 173, 222);">Timer</span>** 를 사용해서 1초 마다 Enemy 컴포넌트를 생성하고, 스크린 너비의 범위 내에 위치를 설정합니다.<br/>
+그리고 score(점수) 별로 어떤 Enemy 컴포넌트를 생성할지 분기 되어 있습니다. 이렇게 만든 EnemyManager 컴포넌트를 메인 **<span style="color: rgb(107, 173, 222);">FlameGame</span>** 컴포넌트에 추가 하면 됩니다.<br/><br/>
+
+**[game/my_game.dart]**<br/>
+```dart
+@override
+onLoad() async {
+  await super.onLoad();
+  
+  world = MyWorld();
+  // 하단 중앙에 위치
+  player = Player(position: Vector2((size[0] / 2) - 40, size[1] - 70));
+  EnemyManager enemyManager = EnemyManager();
+  
+  add(world);
+  add(player);
+  add(enemyManager);
+}
+```
 
 
 ### HasCollisionDetection
@@ -689,6 +827,7 @@ void onCollision(Set<Vector2> intersectionPoints, PositionComponent other) {
   if (other is Bullet) {
     // hp 감소처리
     _hitPoints -= gameRef.gameManager.bulletPowerPoint;
+    // 총알에 맞았을때 Sprite 변경
     current = 2;
   }
   // 플레이어와 충돌시 게임오버
@@ -831,14 +970,108 @@ void destroy({bool isGameOver = false}) {
 ```
 
 이렇게 객체가 사라진 후 **<span style="color: rgb(107, 173, 222);">ParticleSystemComponent</span>** 를 사용해서 20개의 **<span style="color: rgb(107, 173, 222);">AcceleratedParticle</span>** 가속도 속성이 있는 애니매이션 효과 Particles을 만들어 내고 랜덤한 
-가속력과 속도로 0.1초 이후에 사라지는 효과인 컴포넌트를 생성하고 추가 합니다.
+가속력과 속도로 0.1초 이후에 사라지는 효과인 컴포넌트를 생성하고 추가 합니다.<br/>
+
+
+아이템
+-
+
+게임상에 Player가 아이템을 먹고 특정 능력치 부여 등의 처리도 지금까지의 처리 과정과 동일하게 **<span style="color: rgb(107, 173, 222);">CollisionCallbacks</span>** mixin 클래스 사용으로 Player 컴포넌트가 특정 아이템을 먹었을때 능력치 향상 처리 등을 구현할 수 있을 것입니다.<br/>
+이 부분은 위 과정과 동일하기 때문에 전체 코드만 작성하고 추가 설명은 없어도 될것으로 보입니다.<br/>
+아래 코드에서 사용된  Sprite 이미지는 다음과 같습니다.<br/>
+![Items](https://user-images.githubusercontent.com/13028129/215659670-feb8af01-3ef9-4ad7-b016-75e254c740ed.png)<br/><br/>
+
+**[components/item.dart]**<br/>
+```dart
+import 'package:flame/collisions.dart';
+import 'package:flame/components.dart';
+import 'package:flame_game/components/player.dart';
+import 'package:flame_game/game/my_game.dart';
+
+abstract class Item extends SpriteComponent
+    with CollisionCallbacks, HasGameRef<MyGame> {
+  int bulletPowerPoint = 10;
+  final double _speed = 150;
+  final Vector2 _moveDirection = Vector2(0, 1);
+
+  @override
+  void onMount() {
+    super.onMount();
+
+    // enemy 객체 사이즈의 반지름 0.8배 작은 원형 히트박스 추가
+    final shape = CircleHitbox.relative(
+      0.8,
+      parentSize: size,
+      position: size / 2,
+      anchor: Anchor.center,
+    );
+    add(shape);
+  }
+
+  @override
+  void update(double dt) {
+    super.update(dt);
+
+    position += _moveDirection * _speed * dt;
+
+    // 스크린 세로 사이즈 범위 밖으로 사라지면 객체 제거
+    if (position.y > gameRef.size.y) {
+      destroy();
+    }
+  }
+
+  @override
+  void onCollision(Set<Vector2> intersectionPoints, PositionComponent other) {
+    super.onCollision(intersectionPoints, other);
+
+    // 플레이어와 충돌시 게임오버
+    if (other is Player) {
+      destroy();
+
+      // 파워 업 아이템
+      if (this is PowerUpgradeItem) {
+        gameRef.gameManager.upgradePowrerPoint(bulletPowerPoint);
+      }
+    }
+  }
+
+  void destroy() {
+    // 객체 제거
+    removeFromParent();
+  }
+}
+
+class PowerUpgradeItem extends Item {
+  PowerUpgradeItem() {
+    size = Vector2(20, 20);
+    // 파워 +5
+    bulletPowerPoint += 5;
+  }
+
+  @override
+  Future<void>? onLoad() async {
+    // 기본 이미지
+    var powerUpgradeItemSprite = await gameRef.loadSprite("Items.png",
+        srcPosition: Vector2(68, 2), srcSize: Vector2(16, 12));
+    sprite = powerUpgradeItemSprite;
+  }
+}
+```
+
+
+이렇게 구현된 지금까지의 최종 화면은 다음과 같습니다.<br/><br/>
+
 
 ***
 
-지금까지 컴포넌트 애니메이션 처리와 드래그 이벤트 처리 방법에 대해 알아보았습니다.<br/>
-다음에는 장애물 표현 처리와 미사일 표현 처리 등을 살펴보겠습니다.<br/><br/>
+이번엔 조금 많은 작업이 되었는데 지금까지 게임 메뉴 화면 처리 부분, 그리고 다양한 몹에 대한 공통 처리 부분을 추상화 하고 랜덤으로 배치하여 출현되도록 처리하는 부분과 
+Hitbox를 사용해서 컴포넌트 충돌 감지 처리, 간단한 파티클 효과 까지 알아보았습니다.<br/>
+다음에는 마지막 몹의 bullet 처리에 대해 알아보겠습니다. <br/><br/>
+
+![777](https://user-images.githubusercontent.com/13028129/215655584-3612897c-6cf6-48cb-9547-f8468ffe57ee.gif)<br/><br/>
 
 ***
+
 
 위 코드는 다음 Repository에서 확인할 수 있습니다.<br/>
 > [Flutter_flame_game](https://github.com/tyeom/Flutter_flame_game)
