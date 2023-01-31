@@ -208,6 +208,8 @@ https://user-images.githubusercontent.com/13028129/215684893-a80a1991-7fb0-413f-
 flame 자체적으로 제공 되는 기능은 이 밖에도 이펙트 효과, 카메라 처리 등 다양 하기에 잘 활용하면 실제 릴리즈 해도 될만큼 퀄리티 높은 게임 제작이 가능할 것 입니다.<br/>
 추가로 모바일 뿐 아니라 데스크탑과 웹 플랫폼 모두 지원하기 때문에 웹 게임도 간단하게 제작 가능합니다.<br/><br/>
 
+[Web game 바로가기](https://blog.arong.info/Flutter_flame_webgame)<br/><br/>
+
 **[Web 구동 화면]**<br/>
 ![web](https://user-images.githubusercontent.com/13028129/215686992-5d30925e-f903-4765-843c-62aba1f6775a.gif)<br/><br/>
 
