@@ -131,6 +131,10 @@ var background = SpriteComponent.fromImage(backgroundSprite, Vector2(290, 0), Ve
 add(background);
 ```
 
+이렇게 X, Y 좌표를 좌측 상단(0, 0) 기준으로 X 축 290 부터 144 x 280 사이즈의 영역 만큼 이미지로 사용할 수 있습니다.<br/>
+> 참고고 이미지 영역의 좌표 위치 정보는<br/>
+> [spritecow](http://www.spritecow.com/) 사이트에서 해당 이미지를 로드하여 쉽게 알아낼 수 있습니다.<br/>
+
 **[결과 화면]**<br/>
 ![image](https://user-images.githubusercontent.com/13028129/213628766-b74cf9dc-d6c7-4c10-838d-4dbf4341e53b.png)<br/><br/>
 
