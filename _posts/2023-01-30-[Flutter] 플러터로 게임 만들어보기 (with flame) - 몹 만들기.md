@@ -592,7 +592,7 @@ void update(double dt) {
 ```
 
 이렇게 Enemy 추상 클래스가 구현 되었으면 실제 몹에 해당 되는 각각의 몹 클래스를 구현합니다.<br/>
-먼저 Enemy Sprite 이미지는 다음과 같습니다.<br/>
+먼저 Enemy Sprites 이미지는 다음과 같습니다.<br/>
 ![Enemies](https://user-images.githubusercontent.com/13028129/215644662-46aaf4ff-5f4a-4eef-9ca9-eb99cf35e2eb.png)<br/>
 모두 4종류고 위 이미지를 이용해서 각각의 Enemy를 구현합니다.<br/><br/>
 
@@ -873,7 +873,7 @@ void destroy() {
 
 Player 컴포넌트에서는 Enemy 컴포넌트와 충돌시 효과를 다른 상태의 **<span style="color: rgb(107, 173, 222);">SpriteAnimationComponent</span>** 가 보여지게 하기 위해 
 앞서 구현했던 PlayerDirection enum에 boom 상수를 추가하고 그 상태에 따른 **<span style="color: rgb(107, 173, 222);">SpriteAnimation</span>** 을 추가 하였습니다.<br/>
-해당 Sprite 이미지는 다음과 같습니다.<br/>
+해당 Sprites 이미지는 다음과 같습니다.<br/>
 ![Boom](https://user-images.githubusercontent.com/13028129/215652697-96d22dd9-46e3-4879-a295-9adae675f8c2.png)<br/><br/>
 
 **[components/player.dart]**<br/>
@@ -978,7 +978,7 @@ void destroy({bool isGameOver = false}) {
 
 게임상에 Player가 아이템을 먹고 특정 능력치 부여 등의 처리도 지금까지의 처리 과정과 동일하게 **<span style="color: rgb(107, 173, 222);">CollisionCallbacks</span>** mixin 클래스 사용으로 Player 컴포넌트가 특정 아이템을 먹었을때 능력치 향상 처리 등을 구현할 수 있을 것입니다.<br/>
 이 부분은 위 과정과 동일하기 때문에 전체 코드만 작성하고 추가 설명은 없어도 될것으로 보입니다.<br/>
-아래 코드에서 사용된  Sprite 이미지는 다음과 같습니다.<br/>
+아래 코드에서 사용된  Sprites 이미지는 다음과 같습니다.<br/>
 ![Items](https://user-images.githubusercontent.com/13028129/215659670-feb8af01-3ef9-4ad7-b016-75e254c740ed.png)<br/><br/>
 
 **[components/item.dart]**<br/>
