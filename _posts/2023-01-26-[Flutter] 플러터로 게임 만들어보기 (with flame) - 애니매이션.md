@@ -516,7 +516,7 @@ class PlayerComponent<T> extends SpriteAnimationGroupComponent<T> {
 ***
 
 지금까지 컴포넌트 애니메이션 처리와 드래그 이벤트 처리 방법에 대해 알아보았습니다.<br/>
-다음에는 장애물 표현 처리와 미사일 표현 처리 등을 살펴보겠습니다.<br/><br/>
+다음에는 몹 출현 처리와 미사일 표현 그리고 컴포넌트간 충돌 감지 처리 등을 살펴보겠습니다.<br/><br/>
 
 ***
 
