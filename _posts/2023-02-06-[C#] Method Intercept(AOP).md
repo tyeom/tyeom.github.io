@@ -34,9 +34,9 @@ RealProxy
 Proxy는 클라이언트와 서버간 서로 약속된 메세지 를 통해 메서드 호출을 할 수 있는데 메세지 요청의 Invoke() 구현 처리에서 해당 메서드의 호출을 가로챌 수 있습니다.<br/>
 이때 Aspect 모듈을 호출해서 AOP 적용 처리가 가능합니다.<br/>
 다음은 **<span style="color: rgb(107, 173, 222);">RealProxy</span>** 클래스를 사용한 AOP 적용 방법의 간단 예제 코드 입니다.<br/>
-**[출처 : https://stackoverflow.com/questions/13659185/intercepting-method-calls-in-c-sharp-using-proxies]**<br/><br/>
+> 출처 : https://stackoverflow.com/questions/13659185/intercepting-method-calls-in-c-sharp-using-proxies]<br/><br/>
 
-**[RuntimeProxy.cs]**<br/>
+**[RuntimeProxy.cs**<br/>
 ```cs
 namespace Intercepting_Method_RealProxy
 {
