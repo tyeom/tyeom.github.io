@@ -230,8 +230,8 @@ Executed!
 ```
 
 **Add()호출**시 Executing...! Executed!<br/>
-**Val속성의 Set Method()호출**시 Executing...! Executed!<br/>
-**Val속성의 Get Method()호출**시 Executing...! Executed!<br/>
+**Val속성의 set Method()호출**시 Executing...! Executed!<br/>
+**Val속성의 get Method()호출**시 Executing...! Executed!<br/>
 각 메서드 호출이 차단되고 위와 같이 공통 처리되는 것을 확인해 볼 수 있습니다.<br/><br/>
 
 하지만 이런 Proxy 사용은 사용 방법이 다소 복잡합니다.<br/>
@@ -244,9 +244,9 @@ Cauldron.Intercept 라이브러리
 Fody 플러그인의 Cauldron.Intercept 라이브러리는 Proxy 방식으로 처리되지 않고 IL-weavers 사용으로 런타임시 Method Intercept 처리를 깔끔한 방식으로 제공 합니다.<br/>
 우선 Fody 플러그인의 Cauldron.Intercept 라이브러리는 NuGet으로 다운받아 설치 할 수 있으며, .NET Framework 4.x 와 .NET Standart / UWP를 지원합니다.<br/>
 다음 3가지의 패키지를 설치합니다.<br/>
-> Cauldron.Interception.Fody<br/>
-> Costura.Fody<br/>
-> Fody<br/><br/>
+> **Cauldron.Interception.Fody**<br/>
+> **Costura.Fody**<br/>
+> **Fody**
 
 ***
 
@@ -268,10 +268,11 @@ Fody 플러그인의 Cauldron.Intercept 라이브러리는 Proxy 방식으로 �
 </Weavers>
 ```
 
-Cauldron.Intercept 라이브러리의 Method Intercept는 메서드 진입과 메서드 처리 후 해당 메서드 블록 종료시, 그리고 메서드 오류 발생시에 대한 Intercept를 지원합니다.<br/>
+Cauldron.Intercept 라이브러리의 Method Intercept는 메서드 진입과 메서드 처리 후 해당 메서드 블록 종료시(탈출), 그리고 메서드 오류 발생시에 대한 Intercept를 지원합니다.<br/>
 Method Intercept 기능 관련의 **<span style="color: rgb(107, 173, 222);">IMethodInterceptor</span>**, Property value change intercept 관련의 **<span style="color: rgb(107, 173, 222);">IPropertySetterInterceptor</span>**, 
 Constructor interceptor 관련 **<span style="color: rgb(107, 173, 222);">IConstructorInterceptor</span>** 인터페이스를 제공합니다.<br/>
-이렇게 제공되는 인터페이스는 어트리뷰트로 구현하여 필요한 클래스에서만 사용할 수 있게 쉽게 사용 가능합니다.<br/><br/>
+이렇게 제공되는 인터페이스로 어트리뷰트를 구현해서 공통 처리 Aspect 모듈로 사용 가능합니다.<br/>
+예를 들면 로그 처리 관련 Aspect을 다음과 같이 어트리뷰트로 정의할 수 있습니다.<br/><br/>
 
 **[LoggerAttribute.cs]**<br/>
 ```cs
@@ -303,6 +304,8 @@ namespace Intercepting_Method_Cauldron.Interception
     }
 }
 ```
+
+또 다음과 같이 Property set Method Intercept 처리도 어트리뷰트로 구현 가능합니다.<br/><br/> 
 
 **[OnPropertySetAttribute.cs]**<br/>
 ```cs
@@ -339,6 +342,8 @@ namespace Intercepting_Method_Cauldron.Interception
 }
 ```
 
+이렇게 구현된 어트리뷰트는 Method Intercept 처리가 필요한 부분에 어트리뷰트 선언으로 사용 가능합니다.<br/><br/>
+
 **[Program.cs]**<br/>
 ```cs
 using System;
@@ -363,7 +368,6 @@ namespace Intercepting_Method_Cauldron.Interception
         }
     }
 
-
     [Logger]
     [OnPropertySet(nameof(ExecuteMe))]
     class TestClass
@@ -377,7 +381,24 @@ namespace Intercepting_Method_Cauldron.Interception
 }
 ```
 
-이렇게 Logger 어트리뷰트와 OnPropertySet 어트리뷰트 사용으로 공통적인 Aspect 처리가 간단하게 처리 가능 합니다.
+> Logger 어트리뷰트와 OnPropertySet 어트리뷰트 사용으로 공통적인 Aspect 적용
+
+**[출력 결과]**<br/>
+```
+[Log] >> Enter -> TestClass Add 3 4
+[Log] >> Exit -> Add
+7
+[Log] >> Enter -> TestClass ValueChangelog Val 5
+Name : 'Val' / Value : 5
+[Log] >> Exit -> ValueChangelog
+[Log] >> Enter -> TestClass set_Val 5
+[Log] >> Exit -> set_Val
+[Log] >> Enter -> TestClass get_Val
+[Log] >> Exit -> get_Val
+5
+```
+
+메서드 진입과 탈출시 정상적으로 Log가 출력되고(Property get / set 메서드 포함), Property 값 변경시 ValueChangelog() 메서드도 호출 되는걸 확인 할 수 있습니다.<br/><br/>
 
 ***
 
