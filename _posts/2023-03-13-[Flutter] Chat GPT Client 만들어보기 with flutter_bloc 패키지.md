@@ -1,5 +1,5 @@
 ---
-title: (Flutter) Chat GPT Client 만들어보기 wirh flutter_bloc 패키지
+title: (Flutter) Chat GPT Client 만들어보기 with flutter_bloc 패키지
 categories: Flutter
 key: 20230313_01
 comments: true
