@@ -1,5 +1,5 @@
 ---
-title: (Flutter) Chat GPT Client 만들어보기 wirh 음성인식 추가
+title: (Flutter) Chat GPT Client 만들어보기 with 음성인식 추가
 categories: Flutter
 key: 20230314_01
 comments: true
