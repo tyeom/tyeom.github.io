@@ -214,7 +214,7 @@ class _ChatItemState extends State<ChatItem> {
         .speechRecognizerStart(widget.chatMessageViewModel);
   }
   
-  /// 음성 인식 버튼 위짓
+  /// 음성 인식 버튼 위젯
   List<Widget> _displaySpeechRecognitionWidget(ChatMessageViewModel chatMessage) {
     // Android, iOS, macOS 플랫폼만 지원
     if (foundation.defaultTargetPlatform == foundation.TargetPlatform.iOS ||
@@ -279,7 +279,7 @@ Widget _displayMessageInputWidget(ChatMessageViewModel chatMessage) {
             tooltip: 'Send',
             hoverColor: Colors.transparent,
           )),
-  ..._displaySpeechRecognitionWidget(),  // 음성 인식 버튼 추가
+  ..._displaySpeechRecognitionWidget(chatMessage),  // 음성 인식 버튼 추가
 
 ...[중간 생략]...
 }
