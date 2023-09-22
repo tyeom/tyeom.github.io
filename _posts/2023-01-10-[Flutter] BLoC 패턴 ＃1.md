@@ -22,7 +22,7 @@ Flutter 개발에 있어서 상태관리는 반드시 필요한 부분이고 상
 BLoC(Business Logic Component) 패턴이란?
 -
 
-한마디로 정의하면 BLoC(Business Logic Component) 패턴은 상태 변화에 있어 UI(View)와 Busuness Logic을 분리하는데 사용되는 디자인 패턴 입니다.<br/>
+한마디로 정의하면 BLoC(Business Logic Component) 패턴은 상태 변화에 있어 UI(View)와 Business Logic을 분리하는데 사용되는 디자인 패턴 입니다.<br/>
 [bloclibrary](https://bloclibrary.dev/#/whybloc)의 문서를 보면 보다 자세한 내용을 볼 수 있는데 BLoC은 'Simple', 'Powerful', 'Testable' 이 3가지 핵심 가치를 중심으로 개발되었다고 설명하고 있습니다.<br/>
 
 위에서 거론된 패키지들 모두 이 BLoC 패턴 기반으로 클래스를 설계할 수 있도록 해주는 패키지들 입니다.<br/>
@@ -31,9 +31,9 @@ BLoC(Business Logic Component) 패턴이란?
 왜 BLoC을 사용해야 할까?
 -
 
-**첫번째로 위에서 말했듯 UI(View)와 Busuness Logic을 분리함으로서 유지보수하기 좋은 구조로 설계할 수 있습니다.**<br/>
+**첫번째로 위에서 말했듯 UI(View)와 Business Logic을 분리함으로서 유지보수하기 좋은 구조로 설계할 수 있습니다.**<br/>
 UI의 입장에서는 데이터가 처리되는 과정을 알필요가 없습니다. 단지 필요한 데이터를 요청하고 그 결과만을 가지고서 화면에 맞게 표시해 주는 역할에만 충실하면 됩니다.<br/>
-하지만 UI처리 코드와 Busuness Logic이 같이 섞여 있는 코드라면 복잡성은 높아지고 유지보수도 힘들어 집니다. 추가로 사이드 이펙트 오류가 발생할 확율도 높아 집니다.<br/><br/>
+하지만 UI처리 코드와 Business Logic이 같이 섞여 있는 코드라면 복잡성은 높아지고 유지보수도 힘들어 집니다. 추가로 사이드 이펙트 오류가 발생할 확율도 높아 집니다.<br/><br/>
 
 **두번째로 이렇게 분리된 코드는 상태관리되기 때문에 UI에 있어 변경된 부분만 다시 그려주거나 상태만 변경해줌으로써 앱은 빠른 성능이 보장됩니다.**<br/>
 이렇게 상태관리가 되어 있지 않은 앱은 불필요한 UI 다시 그리기 처리, 상태체크 등 작업이 발생됨으로써 그만큼 좋은 성능을 낼 순 없습니다.<br/><br/>
@@ -43,9 +43,9 @@ UI의 입장에서는 데이터가 처리되는 과정을 알필요가 없습니
 TDD 개발 방법론 적용시 BLoC적용은 특정 비즈니스 로직 부분만 유닛 테스트 -> 리펙토링 반복 개발을 수월하게 해줍니다.<br/><br/>
 
 > MVVM 아키텍처 패턴과 BLoC 패턴의 차이점은 ?<br/>
-> MVVM 과 BLoC는 모두 큰 목표로 Busuness Logic을 분리하는데 있어 유사하지만 다음과 같은 개념적인 차이점이 있습니다.<br/>
+> MVVM 과 BLoC는 모두 큰 목표로 Business Logic을 분리하는데 있어 유사하지만 다음과 같은 개념적인 차이점이 있습니다.<br/>
 > MVVM은 View와 ViewModel간 처리를 바인딩을 통해 **'View의 추상적인 View관련'** View Logic을 분리하자는데 목표가 있고,<br/>
-> BLoC는 Stream을 통해 **'꼭 View가 아니더라도'** Busuness Logic을 분리하자는데 목표가 있습니다.
+> BLoC는 Stream을 통해 **'꼭 View가 아니더라도'** Business Logic을 분리하자는데 목표가 있습니다.
 
 
 BLoC의 구조
