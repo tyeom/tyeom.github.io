@@ -698,7 +698,7 @@ Clean Architecture 도입 이후
 ***
 
 ※ 참고로 이 프로젝트는 기본적인 앱 구현에 있어 필요한 다양한 기능들이 구현 되어 있습니다.<br/>
-(반응형 UI처리, 다국어 처리, BLoC를 통한 상태 관리, Dio Interceptor를 통한 API Access token 인증 처리, API Access token 만료시 재발급 로직 설명 등)
+(반응형 UI처리, skeleton loading 효과, 다국어 처리, BLoC를 통한 상태 관리, Dio Interceptor를 통한 API Access token 인증 처리, API Access token 만료시 재발급 로직 설명 등)
 
 ***
 
