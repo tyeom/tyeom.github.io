@@ -77,11 +77,24 @@ Clean Architecture가 추구 하는 방향과 안드로이드 진영에서 Clean
 ### get_it 패키지
 get_it 패키지는 의존성 주입 패키지로 자체적으로 IoC Container 등록을 통한 객체의 수명관리를 하고 의존성 주입 기능을 제공 합니다.<br/>
 IoC Container 등록 종류는 대표적으로 3가지가 있는데 아래 표로 설명 할 수 있습니다.<br/>
-|메서드|설명|
-|---|---|
-|**registerFactory**|새로운 instance를 생성하여 반환 합니다.|
-|**registerSingleton**|생성된 instance를 반환 합니다.|
-|**registerLazySingleton**|바로 생성하지 않고 해당 객체가 사용 될때 생성되며 이후에는 최초 생성한 instance를 반환 합니다.|
+<table>
+        <tr>
+                <th>메서드</th>
+                <th>설명</th>
+        </tr>
+        <tr>
+                <td>registerFactory</td>
+                <td>새로운 instance를 생성하여 반환 합니다.</td>
+        </tr>
+        <tr>
+                <td>registerSingleton</td>
+                <td>생성된 instance를 반환 합니다.</td>
+        </tr>
+        <tr>
+                <td>registerLazySingleton</td>
+                <td>바로 생성하지 않고 해당 객체가 사용 될때 생성되며 이후에는 최초 생성한 instance를 반환 합니다.</td>
+        </tr>
+</table>
 
 이 밖에도 비동기 방식을 지원하는 registerFactoryAsync(), registerSingletonAsync(), registerLazySingletonAsync() 등이 제공 되고,<br/>
 사용은 **<span style="color: rgb(107, 173, 222);">GetIt</span>** 클래스의 정적 속성인 instance 속성을 통해 **<span style="color: rgb(107, 173, 222);">GetIt</span>** 인스턴스를 반환 받아 사용 할 수 있습니다.<br/><br/>
