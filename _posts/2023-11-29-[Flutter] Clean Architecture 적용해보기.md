@@ -306,8 +306,9 @@ get_it 패키지 사용 방법과 get_it을 이용한 DI code generator 를 제�
 ![플러터_클린아키텍처_구조](https://github.com/tyeom/PublicImages/blob/main/68747470733a2f2f6769746875622d70726f64756374696f6e2d757365722d61737365742d3632313064662e73332e616d617a6f6e6177732e636f6d2f31333032383132392f3238363739313439362d33373233663638342d313537612d343530342d613564332d3.png?raw=true)<br/>
 
 > **※ 위 아키텍터 구조 그림에서 Import to 화살표 방향이 잘못된 점이 있습니다.**<br/>
-> [Presentaion Module] 에서 ~Bloc -> [Domain Module] Use Case~ → [Domain Module] Use Case -> [Presentaion Module] Bloc <br/>
-> [Data Module] 에서 ~Translator -> [Domain Module] Model~ → [Momain Module] Model -> [Data Module] Translator <br/>
+> [Presentaion Module] 에서 <del>Bloc -> [Domain Module] Use Case</del> → [Domain Module] Use Case -> [Presentaion Module] Bloc <br/>
+> <br/>
+> [Data Module] 에서 <del>Translator -> [Domain Module] Model</del> → [Momain Module] Model -> [Data Module] Translator <br/>
 
 그리고 위 설계대로 솔루션 구조는 다음과 같이 만들 수 있습니다.<br/>
 프로젝트 솔루션 폴더 구조는 크게 다음과 같이 정의했습니다.<br/>
