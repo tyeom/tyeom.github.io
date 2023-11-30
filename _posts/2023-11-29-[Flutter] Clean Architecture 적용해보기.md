@@ -8,7 +8,7 @@ tags: Flutter CA 예외처리 CleanArchitecture Architecture bloc, 관심사분�
 
 프로젝트 개발을 시작할때 고민하게 되는 것들 중 하나는 Architecture(아키텍처) 입니다.<br/>
 아키텍처 패턴중 하나인 MVVM 패턴은 보통 아래 그림과 같은 설계로 이루어 집니다<br/><br/>
-![image](https://github.com/tyeom/tyeom.github.io/assets/13028129/c57492d2-fadd-4dc4-a298-c09b53b62dcc)
+![image](https://github-production-user-asset-6210df.s3.amazonaws.com/13028129/286452519-c57492d2-fadd-4dc4-a298-c09b53b62dcc.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAIWNJYAX4CSVEH53A%2F20231130%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20231130T002836Z&X-Amz-Expires=300&X-Amz-Signature=27a5b5098683b46020a3ca542ce93041da308ce16c47da88b0b62e518d7b3337&X-Amz-SignedHeaders=host&actor_id=13028129&key_id=0&repo_id=445749826)
 
 규모가 작은 복잡하지 않은 프로젝트에서는 좋긴 하겠지만 계속해서 규모가 커지고, 요구사항이 늘어나 페이지와 기능들이 점차 커지는 경우
 UI 관련 비즈니스 로직등이 포함되어 있는 ViewModel이 복잡해지면서 결국 유지보수에도 어려움이 발생 합니다.<br/>
@@ -22,7 +22,7 @@ UI 관련 비즈니스 로직등이 포함되어 있는 ViewModel이 복잡해�
 우선 Clean Architecture에 대해 알아 봅시다
 -
 
-![image](https://github.com/tyeom/tyeom.github.io/assets/13028129/f8a9020d-4244-4eb6-8bfa-843b5ea4bbec)
+![image](https://github-production-user-asset-6210df.s3.amazonaws.com/13028129/286454240-f8a9020d-4244-4eb6-8bfa-843b5ea4bbec.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAIWNJYAX4CSVEH53A%2F20231130%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20231130T002914Z&X-Amz-Expires=300&X-Amz-Signature=ffb8b6f79cf75ec0c7b5c56e8e2e34978da54e5b92ace6e315c29847ed7cbaac&X-Amz-SignedHeaders=host&actor_id=13028129&key_id=0&repo_id=445749826)
 Clean Architecture하면 너무나도 많이 나오고 유명한(?) 다이어그램 그림 입니다.<br/>
 
 화살표 방향이 의존성을 나타내고 있는 방향 입니다. 따라서 가장 안쪽에 있는 영역 일수록 정책의 기준을 가지고 있고 핵심들이 추상적으로 표현 됩니다.<br/>
@@ -37,7 +37,7 @@ Clean Architecture하면 너무나도 많이 나오고 유명한(?) 다이어그
 그렇게 고민해서 제시 되는 방법중 하나가 인터넷상 많이 거론 되고 있는 클린 아키텍처 구현체들 중에서 Repository의 추상적 구현을 통한 모듈 분리 방법 입니다.<br/><br/>
 
 안드로이드 진영에서 많이 설명 되고 있는 클린 아키텍처 설계의 구조는 다음과 같습니다.<br/>
-![image](https://github.com/tyeom/tyeom.github.io/assets/13028129/51fd18a6-ea4f-47cc-b313-6e7a825431d9)
+![image](https://github-production-user-asset-6210df.s3.amazonaws.com/13028129/286473572-51fd18a6-ea4f-47cc-b313-6e7a825431d9.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAIWNJYAX4CSVEH53A%2F20231130%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20231130T002935Z&X-Amz-Expires=300&X-Amz-Signature=d7563dedf329f27baaa2a9c0297a7ded2f2d0dea95095a15edf6bc94d5498b99&X-Amz-SignedHeaders=host&actor_id=13028129&key_id=0&repo_id=445749826)
 
 Presentation 계층과 Data 계층은 Domain 계층을 의존하고 있으며, 각 계층의 세부 영역 역할은 다음과 같습니다.<br/>
 - **Presentation**
