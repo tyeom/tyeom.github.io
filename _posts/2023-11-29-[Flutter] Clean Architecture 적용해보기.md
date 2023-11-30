@@ -342,7 +342,8 @@ get_it 패키지 사용 방법과 get_it을 이용한 DI code generator 를 제�
 <br/>
 전체 완성된 프로젝트 솔루션 구조입니다.
 
-### UseCase 정의하기
+UseCase 정의하기
+-
 
 UseCase는 어떤 서비스를 사용하기 위한 행동의 최소 단위라고 볼 수 있습니다.<br/>
 **〃인증〃** 이라는 서비스를 사용할때 사용자가 수행 할 수 있는 행동을 구분해 보면<br/>
@@ -356,7 +357,8 @@ UseCase는 어떤 서비스를 사용하기 위한 행동의 최소 단위라고
 - 이렇게 정의한 Use Cases는 다른 프로젝트 환경에서도 동일하게 적용 될 수 있어야 합니다. (Domain 계층의 전반적인 특징)
 
 
-### Useless Use Cases
+Useless Use Cases
+-
 
 이렇게 Use Cases를 정의해 놓고 보면 단지 Repository를 가지고 있는 래핑 역할만 해서 한번 더 감싼 느낌만 들 수 있습니다.<br/>
 하지만 세분화로 Use Cases를 정의하면 해당 Domain이 어떤 요구사항을 처리 할 수 있는지 한눈에 파악할 수 있는 이점이 더 크고,<br/><br/>
