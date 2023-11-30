@@ -298,34 +298,14 @@ class MemberInfoUseCase implements BaseUseCase<void, MemberInfo?> {
 - [Manual order](https://github.com/Milad-Akarie/injectable#manual-order)
 
 
-### UseCase 정의하기
-
-UseCase는 어떤 서비스를 사용하기 위한 행동의 최소 단위라고 볼 수 있습니다.<br/>
-**〃인증〃** 이라는 서비스를 사용할때 사용자가 수행 할 수 있는 행동을 구분해 보면<br/>
-- 아이디와 패스워드로 로그인을 수행한다.
-- 인증한 사용자 정보를 알아본다.
-- 로그아웃을 수행한다.
-
-이렇게 각각 정의해 볼 수 있습니다. 그리고 Clean Architecture 에서 UseCase는 몇가지 규칙을 가집니다.<br/>
-- UseCase는 입력 값 으로 결과 값을 반환할 수 있는 단일 메서드만 외부에 제공.
-- UseCase가 사용되는 Repository는 추상 클래스나 인터페이스로 주입 받습니다.
-- 이렇게 정의한 Use Cases는 다른 프로젝트 환경에서도 동일하게 적용 될 수 있어야 합니다. (Domain 계층의 전반적인 특징)
-
-
-### Useless Use Cases
-
-이렇게 Use Cases를 정의해 놓고 보면 단지 Repository를 가지고 있는 래핑 역할만 해서 한번 더 감싼 느낌만 들 수 있습니다.<br/>
-하지만 세분화로 Use Cases를 정의하면 해당 Domain이 어떤 요구사항을 처리 할 수 있는지 한눈에 파악할 수 있는 이점이 더 크고,<br/><br/>
-
-Use Case 없이 ViewModel 또는 UI관련 비즈니스 로직을 담당하고 있는 곳에서 바로 Repository를 사용하는 경우 처음 MVVM 구조의 단점 설명의 ViewModel이 복잡해 집니다.<br/>
-해당 ViewModel에서는 필요하지 않는 기능들이 불필요하게 Repository를 통해 노출 되고 있기 때문 입니다.<br/>
-또한 해당 Repository의 메서드 시그니처 등이 수정 될 경우 Presentation 계층도 영향을 받기 때문에 OCP 원칙에 위배라고도 볼 수 있습니다.<br/>
-이렇기 때문에 **일관성**을 위해서라도 Use Case는 반드시 사용 되는 것이 좋습니다.
-
-
 프로젝트 구조
 -
 
+get_it 패키지 사용 방법과 get_it을 이용한 DI code generator 를 제공하는 injectable 패키지까지 알아 보았으니, 전체 적인 프로젝트 구조를 설계해 봅니다.<br/>
+전체 프로젝트 아키텍처 구조는 아래 그림과 같은 모습으로 목표를 정했습니다.<br/>
+![플러터_클린아키텍처_구조](https://github-production-user-asset-6210df.s3.amazonaws.com/13028129/286791496-3723f684-157a-4504-a5d3-34365b6c34e9.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAIWNJYAX4CSVEH53A%2F20231130%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20231130T015139Z&X-Amz-Expires=300&X-Amz-Signature=e4b01f5969fe3220068604ea51f9967f56384b8620c1d4b6a9fc6af09c25cb38&X-Amz-SignedHeaders=host&actor_id=13028129&key_id=0&repo_id=445749826)<br/>
+
+그리고 위 설계대로 솔루션 구조는 다음과 같이 만들 수 있습니다.<br/>
 프로젝트 솔루션 폴더 구조는 크게 다음과 같이 정의했습니다.<br/>
 
 ├─**App** - App의 초기 설정<br/>
@@ -361,6 +341,30 @@ Use Case 없이 ViewModel 또는 UI관련 비즈니스 로직을 담당하고 �
 
 <br/>
 전체 완성된 프로젝트 솔루션 구조입니다.
+
+### UseCase 정의하기
+
+UseCase는 어떤 서비스를 사용하기 위한 행동의 최소 단위라고 볼 수 있습니다.<br/>
+**〃인증〃** 이라는 서비스를 사용할때 사용자가 수행 할 수 있는 행동을 구분해 보면<br/>
+- 아이디와 패스워드로 로그인을 수행한다.
+- 인증한 사용자 정보를 알아본다.
+- 로그아웃을 수행한다.
+
+이렇게 각각 정의해 볼 수 있습니다. 그리고 Clean Architecture 에서 UseCase는 몇가지 규칙을 가집니다.<br/>
+- UseCase는 입력 값 으로 결과 값을 반환할 수 있는 단일 메서드만 외부에 제공.
+- UseCase가 사용되는 Repository는 추상 클래스나 인터페이스로 주입 받습니다.
+- 이렇게 정의한 Use Cases는 다른 프로젝트 환경에서도 동일하게 적용 될 수 있어야 합니다. (Domain 계층의 전반적인 특징)
+
+
+### Useless Use Cases
+
+이렇게 Use Cases를 정의해 놓고 보면 단지 Repository를 가지고 있는 래핑 역할만 해서 한번 더 감싼 느낌만 들 수 있습니다.<br/>
+하지만 세분화로 Use Cases를 정의하면 해당 Domain이 어떤 요구사항을 처리 할 수 있는지 한눈에 파악할 수 있는 이점이 더 크고,<br/><br/>
+
+Use Case 없이 ViewModel 또는 UI관련 비즈니스 로직을 담당하고 있는 곳에서 바로 Repository를 사용하는 경우 처음 MVVM 구조의 단점 설명의 ViewModel이 복잡해 집니다.<br/>
+해당 ViewModel에서는 필요하지 않는 기능들이 불필요하게 Repository를 통해 노출 되고 있기 때문 입니다.<br/>
+또한 해당 Repository의 메서드 시그니처 등이 수정 될 경우 Presentation 계층도 영향을 받기 때문에 OCP 원칙에 위배라고도 볼 수 있습니다.<br/>
+이렇기 때문에 **일관성**을 위해서라도 Use Case는 반드시 사용 되는 것이 좋습니다.
 
 
 API 요청 처리 (Data 계층 구현)
@@ -710,7 +714,7 @@ Clean Architecture 도입 이후
 
 ***
 
-※ 참고로 이 프로젝트는 기본적인 앱 구현에 있어 필요한 다양한 기능들이 구현 되어 있습니다.<br/>
+**※ 참고로 이 프로젝트는 기본적인 앱 구현에 있어 필요한 다양한 기능들이 구현 되어 있습니다.**<br/>
 (반응형 UI처리, skeleton loading 효과, 다국어 처리, BLoC를 통한 상태 관리, Dio Interceptor를 통한 API Access token 인증 처리, API Access token 만료시 재발급 로직 설명 등)
 
 ***
