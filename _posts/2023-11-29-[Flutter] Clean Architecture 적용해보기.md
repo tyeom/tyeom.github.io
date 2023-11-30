@@ -308,7 +308,7 @@ get_it 패키지 사용 방법과 get_it을 이용한 DI code generator 를 제�
 > **※ 위 아키텍터 구조 그림에서 Import to 화살표 방향이 잘못된 점이 있습니다.**<br/>
 > [Presentaion Module] 에서 <del>Bloc -> [Domain Module] Use Case</del> → [Domain Module] Use Case -> [Presentaion Module] Bloc <br/>
 > <br/>
-> [Data Module] 에서 <del>Translator -> [Domain Module] Model</del> → [Momain Module] Model -> [Data Module] Translator <br/>
+> [Data Module] 에서 <del>Translator -> [Domain Module] Model</del> → [Domain Module] Model -> [Data Module] Translator <br/>
 
 그리고 위 설계대로 솔루션 구조는 다음과 같이 만들 수 있습니다.<br/>
 프로젝트 솔루션 폴더 구조는 크게 다음과 같이 정의했습니다.<br/>
