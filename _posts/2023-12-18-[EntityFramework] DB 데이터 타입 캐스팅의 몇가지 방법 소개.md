@@ -128,8 +128,7 @@ CAST([r].[CreateDate] AS date) >=  @__createDate_0
 
 하지만 이 방식은 몇가지 문제점이 존재 합니다.<br/>
 1. 몇몇 특정 DataBase Provider에서는 지원하지 않을 수 있습니다.
-2. 데이터 타입 변환 처리가 DataBase 내부의 메모리에서 처리 되어 단위 테스트시 정확한 결과값을 도출 하기 어렵습니다.
-3. 다국어 처리에 있어서 특정 날짜 포맷 형태를 인식 할 수 없어 SQL 오류가 발생될 여지가 있습니다.
+2. 다국어 처리에 있어서 특정 날짜 포맷 형태를 인식 할 수 없어 SQL 오류가 발생될 여지가 있습니다.
 
 
 두번째 방법 : EF제공 Converter 사용
@@ -137,8 +136,9 @@ CAST([r].[CreateDate] AS date) >=  @__createDate_0
 
 EF의 Fluent API를 사용해서 모델에 Converter를 사용 할 수 있습니다.<br/>
 EF Converter는 **<span style="color: rgb(107, 173, 222);">Microsoft.EntityFrameworkCore.ModelBuilder.HasConversion() 메서드</span>** 로 적용 가능한데
-DB에 데이터를 반영할때, 데이터를 비교할때, 데이터가 변경 되었을때 값 변환 처리를 제공 합니다.<br/>
-우선 Converter를 적용하기 위해 기존 Entity모델에 문자 타입으로 되어 있는 날짜 데이터를 날짜 데이터로 변경 합니다.<br/><br/>
+DB에 <u>데이터를 반영할때</u>, <u>데이터를 비교할때</u>, <u>데이터가 변경 되었을때</u> 값 변환 처리를 제공 합니다.<br/>
+또한 이렇게 **Converter로 처리되는 경우 DB 에서 처리 되지 않고,  데이터 처리시 EF 로컬에서 자체 변환** 처리 되어 집니다.
+우선 Converter를 적용하기 위해 기존 Entity모델에 문자 타입으로 되어 있는 날짜 데이터를 [DateOnly] 타입으로 변경 합니다.<br/><br/>
 
 **[RealizedPlEntity.cs]**<br/>
 ```cs
