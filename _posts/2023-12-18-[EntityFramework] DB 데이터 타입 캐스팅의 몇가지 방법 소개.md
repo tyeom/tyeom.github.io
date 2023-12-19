@@ -15,7 +15,7 @@ tags: EntityFramework EF ASP.NET MVC ASP.NET_MVC DB데이터타입 DB캐스팅 �
 <!--more-->
 
 > 이 글에서 다루는 코드는 다음 Repository에서 확인할 수 있습니다.<br/>
-> [flutter_basic_architecture](https://github.com/tyeom/flutter_basic_architecture)
+> [code_check](https://github.com/tyeom/code_check/tree/main/TestSample/aspnet_core/ef_sql_function_mapping)
 
 문제의 상황
 -
@@ -343,7 +343,7 @@ SELECT [r].[No], [r].[CreateDate], [r].[Name], [r].[RealizedPL]
 
 
 위 코드는 다음 Repository에서 확인할 수 있습니다.<br/>
-> [flutter_basic_architecture](https://github.com/tyeom/flutter_basic_architecture)
+> [code_check](https://github.com/tyeom/code_check/tree/main/TestSample/aspnet_core/ef_sql_function_mapping)
 
 
 
