@@ -41,3 +41,8 @@ key: page-about
 - Kotlin
 - Flutter
 - SQL
+
+## contact
+
+- github : https://github.com/tyeom
+- Mail : r.Until@gmail.com
