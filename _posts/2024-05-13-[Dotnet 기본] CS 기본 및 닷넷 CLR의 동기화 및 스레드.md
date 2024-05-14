@@ -358,6 +358,7 @@ Reference
 - [https://velog.io/@yarogono/C-유저-모드와-커널-모드-동기화-C-코드로-알아보기](https://velog.io/@yarogono/C-%EC%9C%A0%EC%A0%80-%EB%AA%A8%EB%93%9C%EC%99%80-%EC%BB%A4%EB%84%90-%EB%AA%A8%EB%93%9C-%EB%8F%99%EA%B8%B0%ED%99%94-C-%EC%BD%94%EB%93%9C%EB%A1%9C-%EC%95%8C%EC%95%84%EB%B3%B4%EA%B8%B0)
 - [https://velog.io/@cedongne/C-Interlocked.Exchange%EC%99%80-CAS](https://velog.io/@cedongne/C-Interlocked.Exchange%EC%99%80-CAS)
 - [https://velog.io/@yarogono/C-Interlocked에-대해-알아보자](https://velog.io/@yarogono/C-Interlocked%EC%97%90-%EB%8C%80%ED%95%B4-%EC%95%8C%EC%95%84%EB%B3%B4%EC%9E%90)
+- [[C#] Interlocked.Exchange와 CAS algorithm, ABA problem](https://velog.io/@cedongne/C-Interlocked.Exchange%EC%99%80-CAS#%C2%B7-aba-problem)
 
 
 ***
