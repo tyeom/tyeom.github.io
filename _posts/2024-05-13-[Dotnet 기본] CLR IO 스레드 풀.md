@@ -1,7 +1,7 @@
 ---
 title: (Dotnet 기본) CLR I/O 스레드 풀
 categories: CS
-key: 20240514_01
+key: 20240513_01
 comments: true
 tags: CS기본 스레드 스레드풀 I/O I/O비동기
 ---
