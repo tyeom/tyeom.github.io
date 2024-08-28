@@ -7,7 +7,7 @@ tags: ts, typescript, 불변성, 불변, Immutable
 ---
 
 프로그래밍에서 어떤 값이나 모델을 제공할때 의도치 않은 변화로 인해 오류가 발생되거나, 오류는 발생 되지 않았지만 잘못된 데이터로 인해 예기치 못한 결과를 만들어 낼 수 있는 상황이 있을 수 있습니다.<br/>
-이때 객체를 불변(Immutable)으로 처리 함으로서 위와 같은 상황을 최소화 하거나 해결 할 수 있습니다.<br/>
+이때 객체를 **불변(Immutable)으로 처리** 함으로서 위와 같은 상황을 최소화 하거나 해결 할 수 있습니다.<br/>
 여러 언어에서 객체를 불변으로 처리하는 방법이 있는데 TypeScript나 JavaScript에서 객체를 불변으로 다루는 방법을 알아 보겠습니다.
 
 <!--more-->
@@ -37,11 +37,11 @@ const person: Person = {
 
 // 오류 발생 (수정 불가)
 person = Person = {
-  name: "John",
+  name: "ming",
   address: {
-    city: "New York",
+    city: "Seoul",
   },
-  hobby: ['game', 'drive']
+  hobby: ['programing', 'drive']
 };
 ```
 
@@ -269,8 +269,8 @@ DeepReadonly 처리
 -
 
 **<span style="color: rgb(107, 173, 222);">Readonly&lt;Type&gt;</span>** 타입을 이용해서 모든 중첩된 속성까지 재귀적으로 처리해서 중첩 객체까지 불변으로 만들 수 있습니다.<br/>
-이런 처리는 매핑된 타입(mapped type) 을 이용해서 구현할 수 있습니다.<br/>
-매핑된 타입(mapped type)은 키 집합의 각 키에 대한 새로운 속성을 만들어서 새로운 타입을 지정할 수 있습니다.</br>
+이런 처리는 **매핑된 타입(mapped type)** 을 이용해서 구현할 수 있습니다.<br/>
+**매핑된 타입(mapped type)** 은 키 집합의 각 키에 대한 새로운 속성을 만들어서 새로운 타입을 지정할 수 있습니다.
 
 ### 매핑된 타입(mapped type)
 TypeScript 공식 문서에 설명 되고 있는 키를 다시 매핑 하는 코드 형식은 다음과 같습니다.<br/><br/>
@@ -290,7 +290,7 @@ type Features = {
 };
 ```
 
-keyof 를 통해 'Features' 타입의 모든 키 타입을 boolean으로 변경할 수 있습니다.<br/><br/>
+**keyof** 를 통해 'Features' 타입의 모든 키 타입을 boolean으로 변경할 수 있습니다.<br/><br/>
 
 ```ts
 type OptionsFlags<Type> = {
@@ -307,7 +307,7 @@ type FeatureOptions = {
 ```
 
 또한 매핑 수정자를 통해 고유 속성을 제거 할 수도 있습니다.<br/>
-다음 코드는 keyof로 타입의 모든 키를 이용해 Indexed Access Types(인덱스드 접근 타입) 으로 해당 키의 타입을 그대로 적용하고 readonly 특성만 제거 하는 코드 입니다.<br/><br/>
+다음 코드는 **keyof**로 타입의 모든 키를 이용해 **Indexed Access Types(인덱스드 접근 타입)** 으로 해당 키의 타입을 그대로 적용하고 readonly 특성만 제거 하는 코드 입니다.<br/><br/>
 
 ```ts
 // 'readonly' attributes 제거
@@ -373,7 +373,7 @@ deepPerson.name = 'ming';  // 오류 발생 (수정 불가)
 deepPerson.address.city = 'Los Angeles';  // 오류 발생 (중첩 객체도 수정 불가)
 ```
 
-타입의 모든 키를 가져와 DeepReadonly&lt;Type&gt; 타입을 재귀적으로 적용되도록 합니다.
+타입의 모든 키를 가져와 **DeepReadonly&lt;Type&gt;** 타입을 재귀적으로 적용되도록 합니다.
 
 
 
